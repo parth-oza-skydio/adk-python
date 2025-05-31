@@ -17,8 +17,7 @@ import copy
 from datetime import datetime
 import json
 import logging
-from typing import Any
-from typing import Optional
+from typing import Any, Dict, List, Optional, Set
 import uuid
 
 from google.genai import types
@@ -107,6 +106,7 @@ Base = declarative_base()
 
 
 class StorageSession(Base):
+  __allow_unmapped__ = True
   """Represents a session stored in the database."""
 
   __tablename__ = "sessions"
@@ -132,7 +132,7 @@ class StorageSession(Base):
       DateTime(), default=func.now(), onupdate=func.now()
   )
 
-  storage_events: list["StorageEvent"] = relationship(
+  storage_events: "List[StorageEvent]" = relationship(
       "StorageEvent",
       back_populates="storage_session",
   )
@@ -142,6 +142,7 @@ class StorageSession(Base):
 
 
 class StorageEvent(Base):
+  __allow_unmapped__ = True
   """Represents an event stored in the database."""
 
   __tablename__ = "events"
@@ -167,13 +168,13 @@ class StorageEvent(Base):
   timestamp: datetime = Column(
       PreciseTimestamp, default=func.now()
   )
-  content: dict[str, Any] = Column(DynamicJSON, nullable=True)
+  content: Dict[str, Any] = Column(DynamicJSON, nullable=True)
   actions: MutableDict[str, Any] = Column(PickleType)
 
   long_running_tool_ids_json: Optional[str] = Column(
       Text, nullable=True
   )
-  grounding_metadata: dict[str, Any] = Column(
+  grounding_metadata: Dict[str, Any] = Column(
       DynamicJSON, nullable=True
   )
   partial: bool = Column(Boolean, nullable=True)
@@ -198,7 +199,7 @@ class StorageEvent(Base):
   )
 
   @property
-  def long_running_tool_ids(self) -> set[str]:
+  def long_running_tool_ids(self) -> Set[str]:
     return (
         set(json.loads(self.long_running_tool_ids_json))
         if self.long_running_tool_ids_json
@@ -206,7 +207,7 @@ class StorageEvent(Base):
     )
 
   @long_running_tool_ids.setter
-  def long_running_tool_ids(self, value: set[str]):
+  def long_running_tool_ids(self, value: Set[str]):
     if value is None:
       self.long_running_tool_ids_json = None
     else:
@@ -301,7 +302,7 @@ class DatabaseSessionService(BaseSessionService):
       *,
       app_name: str,
       user_id: str,
-      state: Optional[dict[str, Any]] = None,
+      state: Optional[Dict[str, Any]] = None,
       session_id: Optional[str] = None,
   ) -> Session:
     # 1. Populate states.
@@ -596,7 +597,7 @@ def convert_event(event: StorageEvent) -> Event:
   )
 
 
-def _extract_state_delta(state: dict[str, Any]):
+def _extract_state_delta(state: Dict[str, Any]):
   app_state_delta = {}
   user_state_delta = {}
   session_state_delta = {}
