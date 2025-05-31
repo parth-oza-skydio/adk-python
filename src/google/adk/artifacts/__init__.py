@@ -13,11 +13,12 @@
 # limitations under the License.
 
 from .base_artifact_service import BaseArtifactService
-from .gcs_artifact_service import GcsArtifactService
+
+# from .gcs_artifact_service import GcsArtifactService
 from .in_memory_artifact_service import InMemoryArtifactService
 
 __all__ = [
-    'BaseArtifactService',
-    'GcsArtifactService',
-    'InMemoryArtifactService',
+    "BaseArtifactService",
+    # 'GcsArtifactService',
+    "InMemoryArtifactService",
 ]
