@@ -28,9 +28,9 @@ dependencies = [
   "authlib>=1.3.2",                          # For RestAPI Tool
   "click>=8.1.8",                            # For CLI tools
   "fastapi>=0.115.0",                        # FastAPI framework
-  "google-cloud-aiplatform==1.46.1",         # For VertexAI integrations
+  "google-cloud-aiplatform==1.43.0",         # For VertexAI integrations
   "google-cloud-secret-manager==2.19.0",     # Fetching secrets
-  "google-cloud-speech==2.26.0",             # For Audio Transcription
+  "google-cloud-speech==2.25.0",             # For Audio Transcription
   "google-cloud-storage==2.15.0",    # For GCS Artifact service
   "google-genai>=1.17.0",                    # Google GenAI SDK
   "graphviz>=0.20.2",                        # Graphviz for graph rendering
@@ -71,7 +71,7 @@ dev = [
 
 eval = [
   # go/keep-sorted start
-  "google-cloud-aiplatform[evaluation]==1.46.1",
+  "google-cloud-aiplatform[evaluation]==1.43.0",
   "pandas>=2.2.3",
   "tabulate>=0.9.0",
   # go/keep-sorted end
