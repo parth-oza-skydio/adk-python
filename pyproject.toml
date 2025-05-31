@@ -29,6 +29,8 @@ dependencies = [
   "click>=8.1.8",                            # For CLI tools
   "fastapi>=0.115.0",                        # FastAPI framework
   "google-api-core==2.17.1",                   # Core Google client library
+  "grpcio==1.62.0",                          # gRPC library
+  "grpcio-status==1.62.0",                   # gRPC status mapping
   "google-cloud-aiplatform==1.43.0",         # For VertexAI integrations
   "google-cloud-secret-manager==2.19.0",     # Fetching secrets
   "google-cloud-speech==2.25.0",             # For Audio Transcription
