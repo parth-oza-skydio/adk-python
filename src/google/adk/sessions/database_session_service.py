@@ -35,9 +35,8 @@ from sqlalchemy.engine import Engine
 from sqlalchemy.exc import ArgumentError
 from sqlalchemy.ext.mutable import MutableDict
 from sqlalchemy.inspection import inspect
-from sqlalchemy.orm import DeclarativeBase
-from sqlalchemy.orm import Mapped
-from sqlalchemy.orm import mapped_column
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy import Column
 from sqlalchemy.orm import relationship
 from sqlalchemy.orm import Session as DatabaseSessionFactory
 from sqlalchemy.orm import sessionmaker
@@ -104,10 +103,7 @@ class PreciseTimestamp(TypeDecorator):
     return self.impl
 
 
-class Base(DeclarativeBase):
-  """Base class for database tables."""
-
-  pass
+Base = declarative_base()
 
 
 class StorageSession(Base):
@@ -115,28 +111,28 @@ class StorageSession(Base):
 
   __tablename__ = "sessions"
 
-  app_name: Mapped[str] = mapped_column(
+  app_name: str = Column(
       String(DEFAULT_MAX_KEY_LENGTH), primary_key=True
   )
-  user_id: Mapped[str] = mapped_column(
+  user_id: str = Column(
       String(DEFAULT_MAX_KEY_LENGTH), primary_key=True
   )
-  id: Mapped[str] = mapped_column(
+  id: str = Column(
       String(DEFAULT_MAX_KEY_LENGTH),
       primary_key=True,
       default=lambda: str(uuid.uuid4()),
   )
 
-  state: Mapped[MutableDict[str, Any]] = mapped_column(
+  state: MutableDict[str, Any] = Column(
       MutableDict.as_mutable(DynamicJSON), default={}
   )
 
-  create_time: Mapped[DateTime] = mapped_column(DateTime(), default=func.now())
-  update_time: Mapped[DateTime] = mapped_column(
+  create_time: datetime = Column(DateTime(), default=func.now())
+  update_time: datetime = Column(
       DateTime(), default=func.now(), onupdate=func.now()
   )
 
-  storage_events: Mapped[list["StorageEvent"]] = relationship(
+  storage_events: list["StorageEvent"] = relationship(
       "StorageEvent",
       back_populates="storage_session",
   )
@@ -150,45 +146,45 @@ class StorageEvent(Base):
 
   __tablename__ = "events"
 
-  id: Mapped[str] = mapped_column(
+  id: str = Column(
       String(DEFAULT_MAX_KEY_LENGTH), primary_key=True
   )
-  app_name: Mapped[str] = mapped_column(
+  app_name: str = Column(
       String(DEFAULT_MAX_KEY_LENGTH), primary_key=True
   )
-  user_id: Mapped[str] = mapped_column(
+  user_id: str = Column(
       String(DEFAULT_MAX_KEY_LENGTH), primary_key=True
   )
-  session_id: Mapped[str] = mapped_column(
+  session_id: str = Column(
       String(DEFAULT_MAX_KEY_LENGTH), primary_key=True
   )
 
-  invocation_id: Mapped[str] = mapped_column(String(DEFAULT_MAX_VARCHAR_LENGTH))
-  author: Mapped[str] = mapped_column(String(DEFAULT_MAX_VARCHAR_LENGTH))
-  branch: Mapped[str] = mapped_column(
+  invocation_id: str = Column(String(DEFAULT_MAX_VARCHAR_LENGTH))
+  author: str = Column(String(DEFAULT_MAX_VARCHAR_LENGTH))
+  branch: str = Column(
       String(DEFAULT_MAX_VARCHAR_LENGTH), nullable=True
   )
-  timestamp: Mapped[PreciseTimestamp] = mapped_column(
+  timestamp: datetime = Column(
       PreciseTimestamp, default=func.now()
   )
-  content: Mapped[dict[str, Any]] = mapped_column(DynamicJSON, nullable=True)
-  actions: Mapped[MutableDict[str, Any]] = mapped_column(PickleType)
+  content: dict[str, Any] = Column(DynamicJSON, nullable=True)
+  actions: MutableDict[str, Any] = Column(PickleType)
 
-  long_running_tool_ids_json: Mapped[Optional[str]] = mapped_column(
+  long_running_tool_ids_json: Optional[str] = Column(
       Text, nullable=True
   )
-  grounding_metadata: Mapped[dict[str, Any]] = mapped_column(
+  grounding_metadata: dict[str, Any] = Column(
       DynamicJSON, nullable=True
   )
-  partial: Mapped[bool] = mapped_column(Boolean, nullable=True)
-  turn_complete: Mapped[bool] = mapped_column(Boolean, nullable=True)
-  error_code: Mapped[str] = mapped_column(
+  partial: bool = Column(Boolean, nullable=True)
+  turn_complete: bool = Column(Boolean, nullable=True)
+  error_code: str = Column(
       String(DEFAULT_MAX_VARCHAR_LENGTH), nullable=True
   )
-  error_message: Mapped[str] = mapped_column(String(1024), nullable=True)
-  interrupted: Mapped[bool] = mapped_column(Boolean, nullable=True)
+  error_message: str = Column(String(1024), nullable=True)
+  interrupted: bool = Column(Boolean, nullable=True)
 
-  storage_session: Mapped[StorageSession] = relationship(
+  storage_session: StorageSession = relationship(
       "StorageSession",
       back_populates="storage_events",
   )
@@ -222,15 +218,18 @@ class StorageAppState(Base):
 
   __tablename__ = "app_states"
 
-  app_name: Mapped[str] = mapped_column(
+  app_name: str = Column(
       String(DEFAULT_MAX_KEY_LENGTH), primary_key=True
   )
-  state: Mapped[MutableDict[str, Any]] = mapped_column(
+  state: MutableDict[str, Any] = Column(
       MutableDict.as_mutable(DynamicJSON), default={}
   )
-  update_time: Mapped[DateTime] = mapped_column(
+  update_time: datetime = Column(
       DateTime(), default=func.now(), onupdate=func.now()
   )
+
+  def __repr__(self):
+    return f"<StorageAppState(app_name={self.app_name}, update_time={self.update_time})>"
 
 
 class StorageUserState(Base):
@@ -238,18 +237,21 @@ class StorageUserState(Base):
 
   __tablename__ = "user_states"
 
-  app_name: Mapped[str] = mapped_column(
+  app_name: str = Column(
       String(DEFAULT_MAX_KEY_LENGTH), primary_key=True
   )
-  user_id: Mapped[str] = mapped_column(
+  user_id: str = Column(
       String(DEFAULT_MAX_KEY_LENGTH), primary_key=True
   )
-  state: Mapped[MutableDict[str, Any]] = mapped_column(
+  state: MutableDict[str, Any] = Column(
       MutableDict.as_mutable(DynamicJSON), default={}
   )
-  update_time: Mapped[DateTime] = mapped_column(
+  update_time: datetime = Column(
       DateTime(), default=func.now(), onupdate=func.now()
   )
+
+  def __repr__(self):
+    return f"<StorageUserState(app_name={self.app_name}, user_id={self.user_id}, update_time={self.update_time})>"
 
 
 class DatabaseSessionService(BaseSessionService):
