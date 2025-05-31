@@ -23,7 +23,7 @@ import uuid
 from google.genai import types
 from sqlalchemy import Boolean
 from sqlalchemy import delete
-from sqlalchemy import Dialect
+from sqlalchemy.engine.interfaces import Dialect
 from sqlalchemy import ForeignKeyConstraint
 from sqlalchemy import func
 from sqlalchemy import Text
