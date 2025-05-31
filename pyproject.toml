@@ -5,7 +5,7 @@
 name = "google-adk"
 description = "Agent Development Kit"
 readme = "README.md"
-requires-python = ">=3.9"
+requires-python = ">=3.8"
 license = { file = "LICENSE" }
 authors = [{ name = "Google LLC", email = "googleapis-packages@google.com" }]
 classifiers = [ # List of https://pypi.org/classifiers/
@@ -25,7 +25,7 @@ classifiers = [ # List of https://pypi.org/classifiers/
 ]
 dependencies = [
   # go/keep-sorted start
-  "authlib>=1.5.1",                          # For RestAPI Tool
+  "authlib>=1.5.0,<1.5.1",                          # For RestAPI Tool
   "click>=8.1.8",                            # For CLI tools
   "fastapi>=0.115.0",                        # FastAPI framework
   "google-api-python-client>=2.157.0",       # Google API client discovery
@@ -43,8 +43,8 @@ dependencies = [
   "python-dotenv>=1.0.0",                    # To manage environment variables
   "PyYAML>=6.0.2",                           # For APIHubToolset.
   "sqlalchemy>=2.0",                         # SQL database ORM
-  "tzlocal>=5.3",                            # Time zone utilities
-  "uvicorn>=0.34.0",                         # ASGI server for FastAPI
+  "tzlocal>=4.4,<5.0",                            # Time zone utilities
+  "uvicorn>=0.33.0,<0.34.0",                         # ASGI server for FastAPI
   # go/keep-sorted end
 ]
 dynamic = ["version"]
@@ -158,7 +158,7 @@ asyncio_default_fixture_loop_scope = "function"
 asyncio_mode = "auto"
 
 [tool.mypy]
-python_version = "3.9"
+python_version = "3.8"
 exclude = "tests/"
 plugins = ["pydantic.mypy"]
 # Start with non-strict mode, and swtich to strict mode later.
