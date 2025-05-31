@@ -1,3 +1,5 @@
+import typing as T
+
 # Copyright 2025 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -24,7 +26,7 @@ class BaseLlmConnection:
   """The base class for a live model connection."""
 
   @abstractmethod
-  async def send_history(self, history: list[types.Content]):
+  async def send_history(self, history: T.List[types.Content]):
     """Sends the conversation history to the model.
 
     You call this method right after setting up the model connection.

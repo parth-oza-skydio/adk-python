@@ -1,3 +1,5 @@
+import typing as T
+
 # Copyright 2025 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,11 +22,11 @@ from google.genai import types
 from ... import testing_utils
 
 
-def function_call(args: dict[str, Any]) -> types.Part:
+def function_call(args: T.Dict[str, Any]) -> types.Part:
   return types.Part.from_function_call(name='increase_by_one', args=args)
 
 
-def function_response(response: dict[str, Any]) -> types.Part:
+def function_response(response: T.Dict[str, Any]) -> types.Part:
   return types.Part.from_function_response(
       name='increase_by_one', response=response
   )

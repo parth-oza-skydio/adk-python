@@ -1,3 +1,5 @@
+import typing as T
+
 # Copyright 2025 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -32,7 +34,7 @@ def test_simple_function():
   function_respones_2 = types.Part.from_function_response(
       name='increase_by_one', response={'result': 2}
   )
-  responses: list[types.Content] = [
+  responses: T.List[types.Content] = [
       function_call_1,
       'response1',
       'response2',
@@ -88,7 +90,7 @@ async def test_async_function():
       ),
   ]
 
-  responses: list[types.Content] = [
+  responses: T.List[types.Content] = [
       function_calls,
       'response1',
       'response2',
@@ -159,7 +161,7 @@ async def test_function_tool():
       ),
   ]
 
-  responses: list[types.Content] = [
+  responses: T.List[types.Content] = [
       function_calls,
       'response1',
       'response2',

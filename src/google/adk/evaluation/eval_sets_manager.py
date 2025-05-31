@@ -1,3 +1,5 @@
+import typing as T
+
 # Copyright 2025 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -33,7 +35,7 @@ class EvalSetsManager(ABC):
     raise NotImplementedError()
 
   @abstractmethod
-  def list_eval_sets(self, app_name: str) -> list[str]:
+  def list_eval_sets(self, app_name: str) -> T.List[str]:
     """Returns a list of EvalSets that belong to the given app_name."""
     raise NotImplementedError()
 

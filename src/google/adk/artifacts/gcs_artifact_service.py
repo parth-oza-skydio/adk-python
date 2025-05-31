@@ -1,3 +1,5 @@
+import typing as T
+
 # Copyright 2025 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -143,7 +145,7 @@ class GcsArtifactService(BaseArtifactService):
   @override
   async def list_artifact_keys(
       self, *, app_name: str, user_id: str, session_id: str
-  ) -> list[str]:
+  ) -> T.List[str]:
     filenames = set()
 
     session_prefix = f"{app_name}/{user_id}/{session_id}/"
@@ -185,7 +187,7 @@ class GcsArtifactService(BaseArtifactService):
   @override
   async def list_versions(
       self, *, app_name: str, user_id: str, session_id: str, filename: str
-  ) -> list[int]:
+  ) -> T.List[int]:
     prefix = self._get_blob_name(app_name, user_id, session_id, filename, "")
     blobs = self.storage_client.list_blobs(self.bucket, prefix=prefix)
     versions = []

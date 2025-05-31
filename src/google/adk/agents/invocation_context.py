@@ -13,6 +13,7 @@
 # limitations under the License.
 
 from __future__ import annotations
+import typing as T
 
 from typing import Optional
 import uuid
@@ -142,10 +143,10 @@ class InvocationContext(BaseModel):
   live_request_queue: Optional[LiveRequestQueue] = None
   """The queue to receive live requests."""
 
-  active_streaming_tools: Optional[dict[str, ActiveStreamingTool]] = None
+  active_streaming_tools: Optional[T.Dict[str, ActiveStreamingTool]] = None
   """The running streaming tools of this invocation."""
 
-  transcription_cache: Optional[list[TranscriptionEntry]] = None
+  transcription_cache: Optional[T.List[TranscriptionEntry]] = None
   """Caches necessary, data audio or contents, that are needed by transcription."""
 
   run_config: Optional[RunConfig] = None

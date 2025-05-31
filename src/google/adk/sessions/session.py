@@ -1,3 +1,5 @@
+import typing as T
+
 # Copyright 2025 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -49,9 +51,9 @@ class Session(BaseModel):
   """The name of the app."""
   user_id: str
   """The id of the user."""
-  state: dict[str, Any] = Field(default_factory=dict)
+  state: T.Dict[str, Any] = Field(default_factory=dict)
   """The state of the session."""
-  events: list[Event] = Field(default_factory=list)
+  events: T.List[Event] = Field(default_factory=list)
   """The events of the session, e.g. user input, model response, function
   call/response, etc."""
   last_update_time: float = 0.0

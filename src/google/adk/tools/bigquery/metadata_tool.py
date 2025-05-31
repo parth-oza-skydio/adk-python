@@ -1,3 +1,5 @@
+import typing as T
+
 # Copyright 2025 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,7 +20,7 @@ from google.oauth2.credentials import Credentials
 from ...tools.bigquery import client
 
 
-def list_dataset_ids(project_id: str, credentials: Credentials) -> list[str]:
+def list_dataset_ids(project_id: str, credentials: Credentials) -> T.List[str]:
   """List BigQuery dataset ids in a Google Cloud project.
 
   Args:
@@ -26,7 +28,7 @@ def list_dataset_ids(project_id: str, credentials: Credentials) -> list[str]:
       credentials (Credentials): The credentials to use for the request.
 
   Returns:
-      list[str]: List of the BigQuery dataset ids present in the project.
+      T.List[str]: List of the BigQuery dataset ids present in the project.
 
   Examples:
       >>> list_dataset_ids("bigquery-public-data")
@@ -116,7 +118,7 @@ def get_dataset_info(
 
 def list_table_ids(
     project_id: str, dataset_id: str, credentials: Credentials
-) -> list[str]:
+) -> T.List[str]:
   """List table ids in a BigQuery dataset.
 
   Args:
@@ -125,7 +127,7 @@ def list_table_ids(
       credentials (Credentials): The credentials to use for the request.
 
   Returns:
-      list[str]: List of the tables ids present in the dataset.
+      T.List[str]: List of the tables ids present in the dataset.
 
   Examples:
       >>> list_table_ids("bigquery-public-data", "ml_datasets")

@@ -1,3 +1,5 @@
+import typing as T
+
 # Copyright 2025 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -97,7 +99,7 @@ class PlanReActPlanner(BasePlanner):
     return text[: index + len(separator)], text[index + len(separator) :]
 
   def _handle_non_function_call_parts(
-      self, response_part: types.Part, preserved_parts: list[types.Part]
+      self, response_part: types.Part, preserved_parts: T.List[types.Part]
   ):
     """Handles non-function-call parts of the response.
 

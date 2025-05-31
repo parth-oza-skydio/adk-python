@@ -13,6 +13,7 @@
 # limitations under the License.
 
 from __future__ import annotations
+import typing as T
 
 import copy
 from typing import AsyncGenerator
@@ -59,11 +60,11 @@ request_processor = _ContentLlmRequestProcessor()
 
 
 def _rearrange_events_for_async_function_responses_in_history(
-    events: list[Event],
-) -> list[Event]:
+    events: T.List[Event],
+) -> T.List[Event]:
   """Rearrange the async function_response events in the history."""
 
-  function_call_id_to_response_events_index: dict[str, list[Event]] = {}
+  function_call_id_to_response_events_index: T.Dict[str, T.List[Event]] = {}
   for i, event in enumerate(events):
     function_responses = event.get_function_responses()
     if function_responses:
@@ -71,7 +72,7 @@ def _rearrange_events_for_async_function_responses_in_history(
         function_call_id = function_response.id
         function_call_id_to_response_events_index[function_call_id] = i
 
-  result_events: list[Event] = []
+  result_events: T.List[Event] = []
   for event in events:
     if event.get_function_responses():
       # function_response should be handled together with function_call below.
@@ -106,8 +107,8 @@ def _rearrange_events_for_async_function_responses_in_history(
 
 
 def _rearrange_events_for_latest_function_response(
-    events: list[Event],
-) -> list[Event]:
+    events: T.List[Event],
+) -> T.List[Event]:
   """Rearrange the events for the latest function_response.
 
   If the latest function_response is for an async function_call, all events
@@ -166,7 +167,7 @@ def _rearrange_events_for_latest_function_response(
   # collect all function response between last function response event
   # and function call event
 
-  function_response_events: list[Event] = []
+  function_response_events: T.List[Event] = []
   for idx in range(function_call_event_idx + 1, len(events) - 1):
     event = events[idx]
     function_responses = event.get_function_responses()
@@ -186,8 +187,8 @@ def _rearrange_events_for_latest_function_response(
 
 
 def _get_contents(
-    current_branch: Optional[str], events: list[Event], agent_name: str = ''
-) -> list[types.Content]:
+    current_branch: Optional[str], events: T.List[Event], agent_name: str = ''
+) -> T.List[types.Content]:
   """Get the contents for the LLM request.
 
   Args:
@@ -304,7 +305,7 @@ def _convert_foreign_event(event: Event) -> Event:
 
 
 def _merge_function_response_events(
-    function_response_events: list[Event],
+    function_response_events: T.List[Event],
 ) -> Event:
   """Merges a list of function_response events into one event.
 
@@ -336,12 +337,12 @@ def _merge_function_response_events(
     raise ValueError('At least one function_response event is required.')
 
   merged_event = function_response_events[0].model_copy(deep=True)
-  parts_in_merged_event: list[types.Part] = merged_event.content.parts  # type: ignore
+  parts_in_merged_event: T.List[types.Part] = merged_event.content.parts  # type: ignore
 
   if not parts_in_merged_event:
     raise ValueError('There should be at least one function_response part.')
 
-  part_indices_in_merged_event: dict[str, int] = {}
+  part_indices_in_merged_event: T.Dict[str, int] = {}
   for idx, part in enumerate(parts_in_merged_event):
     if part.function_response:
       function_call_id: str = part.function_response.id  # type: ignore

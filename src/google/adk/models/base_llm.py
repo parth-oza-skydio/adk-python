@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 from __future__ import annotations
+import typing as T
 
 from abc import abstractmethod
 from typing import AsyncGenerator
@@ -45,7 +46,7 @@ class BaseLlm(BaseModel):
   """The name of the LLM, e.g. gemini-1.5-flash or gemini-1.5-flash-001."""
 
   @classmethod
-  def supported_models(cls) -> list[str]:
+  def supported_models(cls) -> T.List[str]:
     """Returns a list of supported models in regex for LlmRegistry."""
     return []
 

@@ -13,6 +13,7 @@
 # limitations under the License.
 
 from __future__ import annotations
+import typing as T
 
 from typing import TYPE_CHECKING
 from typing import Union
@@ -37,12 +38,12 @@ class ExampleTool(BaseTool):
     examples: The examples to add to the LLM request.
   """
 
-  def __init__(self, examples: Union[list[Example], BaseExampleProvider]):
+  def __init__(self, examples: Union[T.List[Example], BaseExampleProvider]):
     # Name and description are not used because this tool only changes
     # llm_request.
     super().__init__(name='example_tool', description='example tool')
     self.examples = (
-        TypeAdapter(list[Example]).validate_python(examples)
+        TypeAdapter(T.List[Example]).validate_python(examples)
         if isinstance(examples, list)
         else examples
     )

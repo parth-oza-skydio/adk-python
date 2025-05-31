@@ -1,3 +1,5 @@
+import typing as T
+
 # Copyright 2025 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -146,7 +148,7 @@ class IntegrationConnectorTool(BaseTool):
 
   @override
   async def run_async(
-      self, *, args: dict[str, Any], tool_context: Optional[ToolContext]
+      self, *, args: T.Dict[str, Any], tool_context: Optional[ToolContext]
   ) -> Dict[str, Any]:
 
     tool_auth_handler = ToolAuthHandler.from_tool_context(

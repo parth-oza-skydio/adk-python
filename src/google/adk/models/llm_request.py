@@ -13,6 +13,7 @@
 # limitations under the License.
 
 from __future__ import annotations
+import typing as T
 
 from typing import Optional
 
@@ -42,7 +43,7 @@ class LlmRequest(BaseModel):
   model: Optional[str] = None
   """The model name."""
 
-  contents: list[types.Content] = Field(default_factory=list)
+  contents: T.List[types.Content] = Field(default_factory=list)
   """The contents to send to the model."""
 
   config: Optional[types.GenerateContentConfig] = None
@@ -51,10 +52,10 @@ class LlmRequest(BaseModel):
 
   tools in generate_content_config should not be set.
   """
-  tools_dict: dict[str, BaseTool] = Field(default_factory=dict, exclude=True)
+  tools_dict: T.Dict[str, BaseTool] = Field(default_factory=dict, exclude=True)
   """The tools dictionary."""
 
-  def append_instructions(self, instructions: list[str]) -> None:
+  def append_instructions(self, instructions: T.List[str]) -> None:
     """Appends instructions to the system instruction.
 
     Args:
@@ -66,7 +67,7 @@ class LlmRequest(BaseModel):
     else:
       self.config.system_instruction = '\n\n'.join(instructions)
 
-  def append_tools(self, tools: list[BaseTool]) -> None:
+  def append_tools(self, tools: T.List[BaseTool]) -> None:
     """Appends tools to the request.
 
     Args:
@@ -87,7 +88,7 @@ class LlmRequest(BaseModel):
     if declarations:
       self.config.tools.append(types.Tool(function_declarations=declarations))
 
-  def set_output_schema(self, base_model: type[BaseModel]) -> None:
+  def set_output_schema(self, base_model: T.Type[BaseModel]) -> None:
     """Sets the output schema for the request.
 
     Args:

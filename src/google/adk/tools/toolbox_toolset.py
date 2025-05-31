@@ -1,3 +1,5 @@
+import typing as T
+
 # Copyright 2025 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -44,7 +46,7 @@ class ToolboxToolset(BaseToolset):
       server_url: str,
       toolset_name: Optional[str] = None,
       tool_names: Optional[List[str]] = None,
-      auth_token_getters: Optional[dict[str, Callable[[], str]]] = None,
+      auth_token_getters: Optional[T.Dict[str, Callable[[], str]]] = None,
       bound_params: Optional[
           Mapping[str, Union[Callable[[], Any], Any]]
       ] = None,
@@ -78,7 +80,7 @@ class ToolboxToolset(BaseToolset):
   @override
   async def get_tools(
       self, readonly_context: Optional[ReadonlyContext] = None
-  ) -> list[BaseTool]:
+  ) -> T.List[BaseTool]:
     tools = []
     if self._toolset_name:
       tools.extend([

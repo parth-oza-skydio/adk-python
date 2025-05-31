@@ -1,3 +1,5 @@
+import typing as T
+
 # Copyright 2025 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -93,7 +95,7 @@ async def test_agent_examples():
 async def test_agent_base_example_provider():
   class TestExampleProvider(BaseExampleProvider):
 
-    def get_examples(self, query: str) -> list[Example]:
+    def get_examples(self, query: str) -> T.List[Example]:
       if query == "test":
         return [
             Example(

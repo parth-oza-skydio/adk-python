@@ -1,3 +1,5 @@
+import typing as T
+
 # Copyright 2025 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -49,7 +51,7 @@ class GoogleApiTool(BaseTool):
 
   @override
   async def run_async(
-      self, *, args: dict[str, Any], tool_context: Optional[ToolContext]
+      self, *, args: T.Dict[str, Any], tool_context: Optional[ToolContext]
   ) -> Dict[str, Any]:
     return await self._rest_api_tool.run_async(
         args=args, tool_context=tool_context

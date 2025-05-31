@@ -15,6 +15,7 @@
 """Provides data for the agent."""
 
 from __future__ import annotations
+import typing as T
 
 from typing import Any
 from typing import TYPE_CHECKING
@@ -36,6 +37,6 @@ class LlamaIndexRetrieval(BaseRetrievalTool):
 
   @override
   async def run_async(
-      self, *, args: dict[str, Any], tool_context: ToolContext
+      self, *, args: T.Dict[str, Any], tool_context: ToolContext
   ) -> Any:
     return self.retriever.retrieve(args['query'])[0].text

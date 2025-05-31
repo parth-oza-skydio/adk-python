@@ -1,3 +1,5 @@
+import typing as T
+
 # Copyright 2025 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -31,7 +33,7 @@ class EvalSet(BaseModel):
   description: Optional[str] = None
   """Description of the dataset."""
 
-  eval_cases: list[EvalCase]
+  eval_cases: T.List[EvalCase]
   """List of eval cases in the dataset. Each case represents a single
   interaction to be evaluated."""
 

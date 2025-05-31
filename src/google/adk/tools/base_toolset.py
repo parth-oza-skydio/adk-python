@@ -1,3 +1,5 @@
+import typing as T
+
 # Copyright 2025 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -60,7 +62,7 @@ class BaseToolset(ABC):
   async def get_tools(
       self,
       readonly_context: Optional[ReadonlyContext] = None,
-  ) -> list[BaseTool]:
+  ) -> T.List[BaseTool]:
     """Return all tools in the toolset based on the provided context.
 
     Args:
@@ -68,7 +70,7 @@ class BaseToolset(ABC):
         available to the agent. If None, all tools in the toolset are returned.
 
     Returns:
-      list[BaseTool]: A list of tools available under the specified context.
+      T.List[BaseTool]: A list of tools available under the specified context.
     """
 
   @abstractmethod

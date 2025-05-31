@@ -13,6 +13,7 @@
 # limitations under the License.
 
 from __future__ import annotations
+import typing as T
 
 from typing import Optional
 
@@ -49,17 +50,17 @@ class EvalCaseResult(BaseModel):
   final_eval_status: EvalStatus
   """Final eval status for this eval case."""
 
-  eval_metric_results: list[tuple[EvalMetric, EvalMetricResult]] = Field(
+  eval_metric_results: T.List[T.Tuple[EvalMetric, EvalMetricResult]] = Field(
       deprecated=True,
       description=(
           "This field is deprecated, use overall_eval_metric_results instead."
       ),
   )
 
-  overall_eval_metric_results: list[EvalMetricResult]
+  overall_eval_metric_results: T.List[EvalMetricResult]
   """Overall result for each metric for the entire eval case."""
 
-  eval_metric_result_per_invocation: list[EvalMetricResultPerInvocation]
+  eval_metric_result_per_invocation: T.List[EvalMetricResultPerInvocation]
   """Result for each metric on a per invocation basis."""
 
   session_id: str
@@ -82,5 +83,5 @@ class EvalSetResult(BaseModel):
   eval_set_result_id: str
   eval_set_result_name: str
   eval_set_id: str
-  eval_case_results: list[EvalCaseResult] = Field(default_factory=list)
+  eval_case_results: T.List[EvalCaseResult] = Field(default_factory=list)
   creation_timestamp: float = 0.0

@@ -1,3 +1,5 @@
+import typing as T
+
 # Copyright 2025 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -246,7 +248,7 @@ def send_email(user_id: str, email: str) -> list:
   return "Cannot find this user"
 
 
-# def update_user_info(user_id: str, new_info: dict[str, str]) -> str:
+# def update_user_info(user_id: str, new_info: T.Dict[str, str]) -> str:
 def update_user_info(user_id: str, email: str, name: str) -> str:
   """Update a user's information.
 

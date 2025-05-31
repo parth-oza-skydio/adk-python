@@ -1,3 +1,5 @@
+import typing as T
+
 # Copyright 2025 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -38,8 +40,8 @@ class TrajectoryEvaluator(Evaluator):
   @override
   def evaluate_invocations(
       self,
-      actual_invocations: list[Invocation],
-      expected_invocations: list[Invocation],
+      actual_invocations: T.List[Invocation],
+      expected_invocations: T.List[Invocation],
   ) -> EvaluationResult:
     """Returns EvaluationResult after performing evaluations using actual and expected invocations."""
     total_tool_use_accuracy = 0.0
@@ -83,8 +85,8 @@ class TrajectoryEvaluator(Evaluator):
 
   def _are_tool_calls_equal(
       self,
-      actual_tool_calls: list[genai_types.FunctionCall],
-      expected_tool_calls: list[genai_types.FunctionCall],
+      actual_tool_calls: T.List[genai_types.FunctionCall],
+      expected_tool_calls: T.List[genai_types.FunctionCall],
   ) -> bool:
     if len(actual_tool_calls) != len(expected_tool_calls):
       return False
@@ -106,7 +108,7 @@ class TrajectoryEvaluator(Evaluator):
       )
   )
   def evaluate(
-      eval_dataset: list[list[dict[str, Any]]],
+      eval_dataset: T.List[T.List[T.Dict[str, Any]]],
       *,
       print_detailed_results: bool = False,
   ):

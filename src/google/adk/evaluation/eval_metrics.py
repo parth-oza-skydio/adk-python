@@ -13,6 +13,7 @@
 # limitations under the License.
 
 from __future__ import annotations
+import typing as T
 
 from typing import Optional
 
@@ -70,5 +71,5 @@ class EvalMetricResultPerInvocation(BaseModel):
   expected_invocation: Invocation
   """The expected invocation, usually the reference or golden invocation."""
 
-  eval_metric_results: list[EvalMetricResult] = []
+  eval_metric_results: T.List[EvalMetricResult] = []
   """Eval resutls for each applicable metric."""

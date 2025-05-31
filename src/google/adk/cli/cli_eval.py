@@ -13,6 +13,7 @@
 # limitations under the License.
 
 from __future__ import annotations
+import typing as T
 
 import importlib.util
 import json
@@ -71,7 +72,7 @@ def _get_agent_module(agent_module_file_path: str):
 
 def get_evaluation_criteria_or_default(
     eval_config_file_path: str,
-) -> dict[str, float]:
+) -> T.Dict[str, float]:
   """Returns evaluation criteria from the config file, if present.
 
   Otherwise a default one is returned.
@@ -109,8 +110,8 @@ def try_get_reset_func(agent_module_file_path: str) -> Any:
 
 
 def parse_and_get_evals_to_run(
-    eval_set_file_path: tuple[str],
-) -> dict[str, list[str]]:
+    eval_set_file_path: T.Tuple[str],
+) -> T.Dict[str, T.List[str]]:
   """Returns a dictionary of eval sets to evals that should be run."""
   eval_set_to_evals = {}
   for input_eval_set in eval_set_file_path:
@@ -130,10 +131,10 @@ def parse_and_get_evals_to_run(
 
 
 async def run_evals(
-    eval_cases_by_eval_set_id: dict[str, list[EvalCase]],
+    eval_cases_by_eval_set_id: T.Dict[str, T.List[EvalCase]],
     root_agent: Agent,
     reset_func: Optional[Any],
-    eval_metrics: list[EvalMetric],
+    eval_metrics: T.List[EvalMetric],
     session_service: Optional[BaseSessionService] = None,
     artifact_service: Optional[BaseArtifactService] = None,
 ) -> AsyncGenerator[EvalCaseResult, None]:

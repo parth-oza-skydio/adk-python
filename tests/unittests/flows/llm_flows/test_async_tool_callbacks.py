@@ -1,3 +1,5 @@
+import typing as T
+
 # Copyright 2025 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -207,7 +209,7 @@ CALLBACK_PARAMS = [
 )
 @pytest.mark.asyncio
 async def test_before_tool_callbacks_chain(
-    callbacks: List[tuple[Optional[Dict[str, Any]], int]],
+    callbacks: List[T.Tuple[Optional[Dict[str, Any]], int]],
     expected_response: Dict[str, Any],
     expected_calls: List[int],
 ):
@@ -257,7 +259,7 @@ async def test_before_tool_callbacks_chain(
 )
 @pytest.mark.asyncio
 async def test_after_tool_callbacks_chain(
-    callbacks: List[tuple[Optional[Dict[str, Any]], int]],
+    callbacks: List[T.Tuple[Optional[Dict[str, Any]], int]],
     expected_response: Dict[str, Any],
     expected_calls: List[int],
 ):

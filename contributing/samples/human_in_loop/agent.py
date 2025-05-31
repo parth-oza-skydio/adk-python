@@ -1,3 +1,5 @@
+import typing as T
+
 # Copyright 2025 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -29,7 +31,7 @@ def reimburse(purpose: str, amount: float) -> str:
 
 def ask_for_approval(
     purpose: str, amount: float, tool_context: ToolContext
-) -> dict[str, Any]:
+) -> T.Dict[str, Any]:
   """Ask for approval for the reimbursement."""
   return {
       'status': 'pending',

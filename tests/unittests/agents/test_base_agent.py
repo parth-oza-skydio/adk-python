@@ -1,3 +1,5 @@
+import typing as T
+
 # Copyright 2025 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -370,7 +372,7 @@ AFTER_AGENT_CALLBACK_PARAMS = [
 )
 @pytest.mark.asyncio
 async def test_before_agent_callbacks_chain(
-    callbacks: List[tuple[str, int]],
+    callbacks: List[T.Tuple[str, int]],
     expected_responses: List[str],
     expected_calls: List[int],
     request: pytest.FixtureRequest,
@@ -431,7 +433,7 @@ async def test_before_agent_callbacks_chain(
 )
 @pytest.mark.asyncio
 async def test_after_agent_callbacks_chain(
-    callbacks: List[tuple[str, int]],
+    callbacks: List[T.Tuple[str, int]],
     expected_responses: List[str],
     expected_calls: List[int],
     request: pytest.FixtureRequest,
@@ -640,7 +642,7 @@ async def test_run_live_incomplete_agent(request: pytest.FixtureRequest):
 
 
 def test_set_parent_agent_for_sub_agents(request: pytest.FixtureRequest):
-  sub_agents: list[BaseAgent] = [
+  sub_agents: T.List[BaseAgent] = [
       _TestingAgent(name=f'{request.function.__name__}_sub_agent_1'),
       _TestingAgent(name=f'{request.function.__name__}_sub_agent_2'),
   ]

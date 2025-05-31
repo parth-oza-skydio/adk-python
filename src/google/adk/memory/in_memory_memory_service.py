@@ -14,6 +14,7 @@
 
 
 from __future__ import annotations
+import typing as T
 
 import re
 from typing import TYPE_CHECKING
@@ -34,7 +35,7 @@ def _user_key(app_name: str, user_id: str):
   return f'{app_name}/{user_id}'
 
 
-def _extract_words_lower(text: str) -> set[str]:
+def _extract_words_lower(text: str) -> T.Set[str]:
   """Extracts words from a string and converts them to lowercase."""
   return set([word.lower() for word in re.findall(r'[A-Za-z]+', text)])
 
@@ -46,7 +47,7 @@ class InMemoryMemoryService(BaseMemoryService):
   """
 
   def __init__(self):
-    self._session_events: dict[str, dict[str, list[Event]]] = {}
+    self._session_events: T.Dict[str, T.Dict[str, T.List[Event]]] = {}
     """Keys are app_name/user_id, session_id. Values are session event lists."""
 
   @override

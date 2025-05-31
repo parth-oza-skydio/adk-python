@@ -13,6 +13,7 @@
 # limitations under the License.
 
 from __future__ import annotations
+import typing as T
 
 import inspect
 from typing import Any
@@ -48,12 +49,12 @@ _SingleAgentCallback: TypeAlias = Callable[
 
 BeforeAgentCallback: TypeAlias = Union[
     _SingleAgentCallback,
-    list[_SingleAgentCallback],
+    T.List[_SingleAgentCallback],
 ]
 
 AfterAgentCallback: TypeAlias = Union[
     _SingleAgentCallback,
-    list[_SingleAgentCallback],
+    T.List[_SingleAgentCallback],
 ]
 
 
@@ -89,7 +90,7 @@ class BaseAgent(BaseModel):
   instances with identical config, but with different name and add them to the
   agent tree.
   """
-  sub_agents: list[BaseAgent] = Field(default_factory=list)
+  sub_agents: T.List[BaseAgent] = Field(default_factory=list)
   """The sub-agents of this agent."""
 
   before_agent_callback: Optional[BeforeAgentCallback] = None
@@ -251,7 +252,7 @@ class BaseAgent(BaseModel):
     return invocation_context
 
   @property
-  def canonical_before_agent_callbacks(self) -> list[_SingleAgentCallback]:
+  def canonical_before_agent_callbacks(self) -> T.List[_SingleAgentCallback]:
     """The resolved self.before_agent_callback field as a list of _SingleAgentCallback.
 
     This method is only for use by Agent Development Kit.
@@ -263,7 +264,7 @@ class BaseAgent(BaseModel):
     return [self.before_agent_callback]
 
   @property
-  def canonical_after_agent_callbacks(self) -> list[_SingleAgentCallback]:
+  def canonical_after_agent_callbacks(self) -> T.List[_SingleAgentCallback]:
     """The resolved self.after_agent_callback field as a list of _SingleAgentCallback.
 
     This method is only for use by Agent Development Kit.

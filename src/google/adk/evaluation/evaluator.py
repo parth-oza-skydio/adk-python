@@ -1,3 +1,5 @@
+import typing as T
+
 # Copyright 2025 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -43,7 +45,7 @@ class EvaluationResult(BaseModel):
   overall_eval_status: EvalStatus = EvalStatus.NOT_EVALUATED
   """Overall status, based on each invocation."""
 
-  per_invocation_results: list[PerInvocationResult] = []
+  per_invocation_results: T.List[PerInvocationResult] = []
 
 
 class Evaluator(ABC):
@@ -51,8 +53,8 @@ class Evaluator(ABC):
 
   def evaluate_invocations(
       self,
-      actual_invocations: list[Invocation],
-      expected_invocations: list[Invocation],
+      actual_invocations: T.List[Invocation],
+      expected_invocations: T.List[Invocation],
   ) -> EvaluationResult:
     """Returns EvaluationResult after performing evaluations using actual and expected invocations."""
     raise NotImplementedError()

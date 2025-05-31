@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 from __future__ import annotations
+import typing as T
 
 from typing import TYPE_CHECKING
 
@@ -31,7 +32,7 @@ class AudioTranscriber:
 
   def transcribe_file(
       self, invocation_context: InvocationContext
-  ) -> list[genai_types.Content]:
+  ) -> T.List[genai_types.Content]:
     """Transcribe audio, bundling consecutive segments from the same speaker.
 
     The ordering of speakers will be preserved. Audio blobs will be merged for

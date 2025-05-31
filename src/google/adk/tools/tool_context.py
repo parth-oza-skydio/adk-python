@@ -13,6 +13,7 @@
 # limitations under the License.
 
 from __future__ import annotations
+import typing as T
 
 from typing import Optional
 from typing import TYPE_CHECKING
@@ -69,7 +70,7 @@ class ToolContext(CallbackContext):
   def get_auth_response(self, auth_config: AuthConfig) -> AuthCredential:
     return AuthHandler(auth_config).get_auth_response(self.state)
 
-  async def list_artifacts(self) -> list[str]:
+  async def list_artifacts(self) -> T.List[str]:
     """Lists the filenames of the artifacts attached to the current session."""
     if self._invocation_context.artifact_service is None:
       raise ValueError('Artifact service is not initialized.')

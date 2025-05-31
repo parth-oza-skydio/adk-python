@@ -13,6 +13,7 @@
 # limitations under the License.
 
 from __future__ import annotations
+import typing as T
 
 from abc import ABC
 import asyncio
@@ -58,8 +59,8 @@ class BaseLlmFlow(ABC):
   """
 
   def __init__(self):
-    self.request_processors: list[BaseLlmRequestProcessor] = []
-    self.response_processors: list[BaseLlmResponseProcessor] = []
+    self.request_processors: T.List[BaseLlmRequestProcessor] = []
+    self.response_processors: T.List[BaseLlmResponseProcessor] = []
 
   async def run_live(
       self,

@@ -1,3 +1,5 @@
+import typing as T
+
 # Copyright 2025 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -190,9 +192,9 @@ class VertexAiCodeExecutor(BaseCodeExecutor):
   def _execute_code_interpreter(
       self,
       code: str,
-      input_files: Optional[list[File]] = None,
+      input_files: Optional[T.List[File]] = None,
       session_id: Optional[str] = None,
-  ) -> dict[str, Any]:
+  ) -> T.Dict[str, Any]:
     """Executes the code interpreter extension.
 
     Args:

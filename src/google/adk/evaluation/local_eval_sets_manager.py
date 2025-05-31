@@ -13,6 +13,7 @@
 # limitations under the License.
 
 from __future__ import annotations
+import typing as T
 
 import json
 import logging
@@ -39,7 +40,7 @@ _EVAL_SET_FILE_EXTENSION = ".evalset.json"
 
 
 def _convert_invocation_to_pydantic_schema(
-    invocation_in_json_format: dict[str, Any],
+    invocation_in_json_format: T.Dict[str, Any],
 ) -> Invocation:
   """Converts an invocation from old json format to new Pydantic Schema."""
   query = invocation_in_json_format["query"]
@@ -80,7 +81,7 @@ def _convert_invocation_to_pydantic_schema(
 
 def convert_eval_set_to_pydanctic_schema(
     eval_set_id: str,
-    eval_set_in_json_format: list[dict[str, Any]],
+    eval_set_in_json_format: T.List[T.Dict[str, Any]],
 ) -> EvalSet:
   r"""Returns an pydantic EvalSet generated from the json representation.
 
@@ -216,7 +217,7 @@ class LocalEvalSetsManager(EvalSetsManager):
       self._write_eval_set(new_eval_set_path, new_eval_set)
 
   @override
-  def list_eval_sets(self, app_name: str) -> list[str]:
+  def list_eval_sets(self, app_name: str) -> T.List[str]:
     """Returns a list of EvalSets that belong to the given app_name."""
     eval_set_file_path = os.path.join(self._agents_dir, app_name)
     eval_sets = []

@@ -14,6 +14,7 @@
 
 
 from __future__ import annotations
+import typing as T
 
 from abc import ABC
 from abc import abstractmethod
@@ -35,7 +36,7 @@ class SearchMemoryResponse(BaseModel):
       memories: A list of memory entries that relate to the search query.
   """
 
-  memories: list[MemoryEntry] = Field(default_factory=list)
+  memories: T.List[MemoryEntry] = Field(default_factory=list)
 
 
 class BaseMemoryService(ABC):

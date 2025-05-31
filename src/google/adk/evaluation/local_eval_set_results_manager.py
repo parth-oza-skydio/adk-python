@@ -13,6 +13,7 @@
 # limitations under the License.
 
 from __future__ import annotations
+import typing as T
 
 import json
 import logging
@@ -46,7 +47,7 @@ class LocalEvalSetResultsManager(EvalSetResultsManager):
       self,
       app_name: str,
       eval_set_id: str,
-      eval_case_results: list[EvalCaseResult],
+      eval_case_results: T.List[EvalCaseResult],
   ) -> None:
     """Creates and saves a new EvalSetResult given eval_case_results."""
     timestamp = time.time()
@@ -95,7 +96,7 @@ class LocalEvalSetResultsManager(EvalSetResultsManager):
     return EvalSetResult.model_validate_json(eval_result_data)
 
   @override
-  def list_eval_set_results(self, app_name: str) -> list[str]:
+  def list_eval_set_results(self, app_name: str) -> T.List[str]:
     """Returns the eval result ids that belong to the given app_name."""
     app_eval_history_directory = self._get_eval_history_dir(app_name)
 

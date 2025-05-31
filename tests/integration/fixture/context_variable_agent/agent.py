@@ -1,3 +1,5 @@
+import typing as T
+
 # Copyright 2025 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -24,7 +26,7 @@ from google.adk.tools import ToolContext
 def update_fc(
     data_one: str,
     data_two: Union[int, float, str],
-    data_three: list[str],
+    data_three: T.List[str],
     data_four: List[Union[int, float, str]],
     tool_context: ToolContext,
 ) -> str:

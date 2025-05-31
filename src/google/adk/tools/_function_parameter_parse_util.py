@@ -14,6 +14,7 @@
 #
 
 from __future__ import annotations
+import typing as T
 
 import inspect
 import logging
@@ -246,7 +247,7 @@ def _parse_schema_from_parameter(
                 hasattr(optional_arg, '__origin__')
                 and optional_arg.__origin__ is list
             ):
-              # Optional type with list, for example Optional[list[str]]
+              # Optional type with list, for example Optional[T.List[str]]
               schema.items = schema_in_any_of.items
         if (
             schema_in_any_of.model_dump_json(exclude_none=True)
@@ -306,7 +307,7 @@ def _parse_schema_from_parameter(
   )
 
 
-def _get_required_fields(schema: types.Schema) -> list[str]:
+def _get_required_fields(schema: types.Schema) -> T.List[str]:
   if not schema.properties:
     return
   return [

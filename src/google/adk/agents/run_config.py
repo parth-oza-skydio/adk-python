@@ -1,3 +1,5 @@
+import typing as T
+
 # Copyright 2025 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -42,7 +44,7 @@ class RunConfig(BaseModel):
   speech_config: Optional[types.SpeechConfig] = None
   """Speech configuration for the live agent."""
 
-  response_modalities: Optional[list[str]] = None
+  response_modalities: Optional[T.List[str]] = None
   """The output modalities. If not set, it's default to AUDIO."""
 
   save_input_blobs_as_artifacts: bool = False

@@ -13,6 +13,7 @@
 # limitations under the License.
 
 from __future__ import annotations
+import typing as T
 
 import asyncio
 import logging
@@ -458,7 +459,7 @@ class Runner:
         run_config=run_config,
     )
 
-  def _collect_toolset(self, agent: BaseAgent) -> set[BaseToolset]:
+  def _collect_toolset(self, agent: BaseAgent) -> T.Set[BaseToolset]:
     toolsets = set()
     if isinstance(agent, LlmAgent):
       for tool_union in agent.tools:
@@ -468,7 +469,7 @@ class Runner:
       toolsets.update(self._collect_toolset(sub_agent))
     return toolsets
 
-  async def _cleanup_toolsets(self, toolsets_to_close: set[BaseToolset]):
+  async def _cleanup_toolsets(self, toolsets_to_close: T.Set[BaseToolset]):
     """Clean up toolsets with proper task context management."""
     if not toolsets_to_close:
       return

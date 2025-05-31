@@ -1,3 +1,5 @@
+import typing as T
+
 # Copyright 2025 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -30,7 +32,7 @@ logger = logging.getLogger("google_adk." + __name__)
 class InMemoryArtifactService(BaseArtifactService, BaseModel):
   """An in-memory implementation of the artifact service."""
 
-  artifacts: dict[str, list[types.Part]] = Field(default_factory=dict)
+  artifacts: T.Dict[str, T.List[types.Part]] = Field(default_factory=dict)
 
   def _file_has_user_namespace(self, filename: str) -> bool:
     """Checks if the filename has a user namespace.
@@ -100,7 +102,7 @@ class InMemoryArtifactService(BaseArtifactService, BaseModel):
   @override
   async def list_artifact_keys(
       self, *, app_name: str, user_id: str, session_id: str
-  ) -> list[str]:
+  ) -> T.List[str]:
     session_prefix = f"{app_name}/{user_id}/{session_id}/"
     usernamespace_prefix = f"{app_name}/{user_id}/user/"
     filenames = []
@@ -125,7 +127,7 @@ class InMemoryArtifactService(BaseArtifactService, BaseModel):
   @override
   async def list_versions(
       self, *, app_name: str, user_id: str, session_id: str, filename: str
-  ) -> list[int]:
+  ) -> T.List[int]:
     path = self._artifact_path(app_name, user_id, session_id, filename)
     versions = self.artifacts.get(path)
     if not versions:

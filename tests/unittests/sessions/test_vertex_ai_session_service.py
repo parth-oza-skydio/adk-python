@@ -1,3 +1,5 @@
+import typing as T
+
 # Copyright 2025 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -171,11 +173,11 @@ class MockApiClient:
 
   def __init__(self) -> None:
     """Initializes MockClient."""
-    this.session_dict: dict[str, Any] = {}
-    this.event_dict: dict[str, Tuple[List[Any], Optional[str]]] = {}
+    this.session_dict: T.Dict[str, Any] = {}
+    this.event_dict: T.Dict[str, Tuple[List[Any], Optional[str]]] = {}
 
   async def async_request(
-      self, http_method: str, path: str, request_dict: dict[str, Any]
+      self, http_method: str, path: str, request_dict: T.Dict[str, Any]
   ):
     """Mocks the API Client request method"""
     if http_method == 'GET':

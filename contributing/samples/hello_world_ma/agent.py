@@ -1,3 +1,5 @@
+import typing as T
+
 # Copyright 2025 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -45,7 +47,7 @@ roll_agent = Agent(
 
 
 # --- Prime Check Sub-Agent ---
-def check_prime(nums: list[int]) -> str:
+def check_prime(nums: T.List[int]) -> str:
   """Check if a given list of numbers are prime."""
   primes = set()
   for number in nums:

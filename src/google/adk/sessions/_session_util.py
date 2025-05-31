@@ -13,6 +13,7 @@
 # limitations under the License.
 """Utility functions for session service."""
 from __future__ import annotations
+import typing as T
 
 from typing import Any
 from typing import Optional
@@ -21,7 +22,7 @@ from google.genai import types
 
 
 def decode_content(
-    content: Optional[dict[str, Any]],
+    content: Optional[T.Dict[str, Any]],
 ) -> Optional[types.Content]:
   """Decodes a content object from a JSON dictionary."""
   if not content:
@@ -30,7 +31,7 @@ def decode_content(
 
 
 def decode_grounding_metadata(
-    grounding_metadata: Optional[dict[str, Any]],
+    grounding_metadata: Optional[T.Dict[str, Any]],
 ) -> Optional[types.GroundingMetadata]:
   """Decodes a grounding metadata object from a JSON dictionary."""
   if not grounding_metadata:

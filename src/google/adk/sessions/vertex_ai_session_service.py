@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 from __future__ import annotations
+import typing as T
 
 import asyncio
 import logging
@@ -59,7 +60,7 @@ class VertexAiSessionService(BaseSessionService):
       *,
       app_name: str,
       user_id: str,
-      state: Optional[dict[str, Any]] = None,
+      state: Optional[T.Dict[str, Any]] = None,
       session_id: Optional[str] = None,
   ) -> Session:
     if session_id:

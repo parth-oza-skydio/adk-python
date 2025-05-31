@@ -1,3 +1,5 @@
+import typing as T
+
 # Copyright 2025 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -47,8 +49,8 @@ class ResponseEvaluator(Evaluator):
   @override
   def evaluate_invocations(
       self,
-      actual_invocations: list[Invocation],
-      expected_invocations: list[Invocation],
+      actual_invocations: T.List[Invocation],
+      expected_invocations: T.List[Invocation],
   ) -> EvaluationResult:
     total_score = 0.0
     num_invocations = 0
@@ -103,7 +105,7 @@ class ResponseEvaluator(Evaluator):
 
   def _get_tool_use_trajectory(
       self, intermediate_data: Optional[IntermediateData]
-  ) -> list[dict[str, Any]]:
+  ) -> T.List[T.Dict[str, Any]]:
     tool_use_trajectory = []
     if not intermediate_data:
       return tool_use_trajectory
@@ -130,8 +132,8 @@ class ResponseEvaluator(Evaluator):
       )
   )
   def evaluate(
-      raw_eval_dataset: list[list[dict[str, Any]]],
-      evaluation_criteria: list[str],
+      raw_eval_dataset: T.List[T.List[T.Dict[str, Any]]],
+      evaluation_criteria: T.List[str],
       *,
       print_detailed_results: bool = False,
   ):

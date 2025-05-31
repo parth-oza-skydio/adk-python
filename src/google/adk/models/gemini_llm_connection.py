@@ -1,3 +1,5 @@
+import typing as T
+
 # Copyright 2025 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -30,7 +32,7 @@ class GeminiLlmConnection(BaseLlmConnection):
   def __init__(self, gemini_session: live.AsyncSession):
     self._gemini_session = gemini_session
 
-  async def send_history(self, history: list[types.Content]):
+  async def send_history(self, history: T.List[types.Content]):
     """Sends the conversation history to the gemini model.
 
     You call this method right after setting up the model connection.

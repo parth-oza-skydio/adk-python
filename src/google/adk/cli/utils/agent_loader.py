@@ -13,6 +13,7 @@
 # limitations under the License.
 
 from __future__ import annotations
+import typing as T
 
 import importlib
 import logging
@@ -40,7 +41,7 @@ class AgentLoader:
   def __init__(self, agents_dir: str):
     self.agents_dir = agents_dir.rstrip("/")
     self._original_sys_path = None
-    self._agent_cache: dict[str, BaseAgent] = {}
+    self._agent_cache: T.Dict[str, BaseAgent] = {}
 
   def _load_from_module_or_package(
       self, agent_name: str

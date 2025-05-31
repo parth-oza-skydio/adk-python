@@ -13,6 +13,7 @@
 # limitations under the License.
 
 from __future__ import annotations
+import typing as T
 
 from typing import TYPE_CHECKING
 
@@ -30,7 +31,7 @@ if TYPE_CHECKING:
 
 
 class LoadMemoryResponse(BaseModel):
-  memories: list[MemoryEntry] = Field(default_factory=list)
+  memories: T.List[MemoryEntry] = Field(default_factory=list)
 
 
 async def load_memory(

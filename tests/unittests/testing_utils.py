@@ -1,3 +1,5 @@
+import typing as T
+
 # Copyright 2025 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -52,7 +54,7 @@ class UserContent(types.Content):
 
 class ModelContent(types.Content):
 
-  def __init__(self, parts: list[types.Part]):
+  def __init__(self, parts: T.List[types.Part]):
     super().__init__(role='model', parts=parts)
 
 
@@ -83,7 +85,7 @@ async def create_invocation_context(agent: Agent, user_content: str = ''):
 
 
 def append_user_content(
-    invocation_context: InvocationContext, parts: list[types.Part]
+    invocation_context: InvocationContext, parts: T.List[types.Part]
 ) -> Event:
   session = invocation_context.session
   event = Event(
@@ -97,12 +99,12 @@ def append_user_content(
 
 # Extracts the contents from the events and transform them into a list of
 # (author, simplified_content) tuples.
-def simplify_events(events: list[Event]) -> list[(str, types.Part)]:
+def simplify_events(events: T.List[Event]) -> T.List[(str, types.Part)]:
   return [(event.author, simplify_content(event.content)) for event in events]
 
 
 # Simplifies the contents into a list of (author, simplified_content) tuples.
-def simplify_contents(contents: list[types.Content]) -> list[(str, types.Part)]:
+def simplify_contents(contents: T.List[types.Content]) -> T.List[(str, types.Part)]:
   return [(content.role, simplify_content(content)) for content in contents]
 
 
@@ -113,7 +115,7 @@ def simplify_contents(contents: list[types.Content]) -> list[(str, types.Part)]:
 # - remove function_call_id if it exists
 def simplify_content(
     content: types.Content,
-) -> Union[str, types.Part, list[types.Part]]:
+) -> Union[str, types.Part, T.List[types.Part]]:
   for part in content.parts:
     if part.function_call and part.function_call.id:
       part.function_call.id = None
@@ -139,7 +141,7 @@ class TestInMemoryRunner(AfInMemoryRunner):
 
   async def run_async_with_new_session(
       self, new_message: types.ContentUnion
-  ) -> list[Event]:
+  ) -> T.List[Event]:
 
     session = await self.session_service.create_session(
         app_name='InMemoryRunner', user_id='test_user'
@@ -162,7 +164,7 @@ class InMemoryRunner:
   def __init__(
       self,
       root_agent: Union[Agent, LlmAgent],
-      response_modalities: list[str] = None,
+      response_modalities: T.List[str] = None,
   ):
     self.root_agent = root_agent
     self.runner = Runner(
@@ -186,7 +188,7 @@ class InMemoryRunner:
         app_name='test_app', user_id='test_user', session_id=self.session_id
     )
 
-  def run(self, new_message: types.ContentUnion) -> list[Event]:
+  def run(self, new_message: types.ContentUnion) -> T.List[Event]:
     return list(
         self.runner.run(
             user_id=self.session.user_id,
@@ -195,7 +197,7 @@ class InMemoryRunner:
         )
     )
 
-  async def run_async(self, new_message: types.ContentUnion) -> list[Event]:
+  async def run_async(self, new_message: types.ContentUnion) -> T.List[Event]:
     events = []
     async for event in self.runner.run_async(
         user_id=self.session.user_id,
@@ -205,7 +207,7 @@ class InMemoryRunner:
       events.append(event)
     return events
 
-  def run_live(self, live_request_queue: LiveRequestQueue) -> list[Event]:
+  def run_live(self, live_request_queue: LiveRequestQueue) -> T.List[Event]:
     collected_responses = []
 
     async def consume_responses(session: Session):
@@ -232,30 +234,30 @@ class InMemoryRunner:
 class MockModel(BaseLlm):
   model: str = 'mock'
 
-  requests: list[LlmRequest] = []
-  responses: list[LlmResponse]
+  requests: T.List[LlmRequest] = []
+  responses: T.List[LlmResponse]
   response_index: int = -1
 
   @classmethod
   def create(
       cls,
       responses: Union[
-          list[types.Part], list[LlmResponse], list[str], list[list[types.Part]]
+          T.List[types.Part], T.List[LlmResponse], T.List[str], T.List[T.List[types.Part]]
       ],
   ):
     if not responses:
       return cls(responses=[])
     elif isinstance(responses[0], LlmResponse):
-      # responses is list[LlmResponse]
+      # responses is T.List[LlmResponse]
       return cls(responses=responses)
     else:
       responses = [
           LlmResponse(content=ModelContent(item))
           if isinstance(item, list) and isinstance(item[0], types.Part)
-          # responses is list[list[Part]]
+          # responses is T.List[T.List[Part]]
           else LlmResponse(
               content=ModelContent(
-                  # responses is list[str] or list[Part]
+                  # responses is T.List[str] or T.List[Part]
                   [Part(text=item) if isinstance(item, str) else item]
               )
           )
@@ -266,7 +268,7 @@ class MockModel(BaseLlm):
       return cls(responses=responses)
 
   @staticmethod
-  def supported_models() -> list[str]:
+  def supported_models() -> T.List[str]:
     return ['mock']
 
   def generate_content(
@@ -295,10 +297,10 @@ class MockModel(BaseLlm):
 
 class MockLlmConnection(BaseLlmConnection):
 
-  def __init__(self, llm_responses: list[LlmResponse]):
+  def __init__(self, llm_responses: T.List[LlmResponse]):
     self.llm_responses = llm_responses
 
-  async def send_history(self, history: list[types.Content]):
+  async def send_history(self, history: T.List[types.Content]):
     pass
 
   async def send_content(self, content: types.Content):

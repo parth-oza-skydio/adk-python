@@ -1,3 +1,5 @@
+import typing as T
+
 # Copyright 2025 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -98,7 +100,7 @@ class ApiParameter(BaseModel):
   param_schema: Union[str, Schema]
   description: Optional[str] = ''
   py_name: Optional[str] = ''
-  type_value: type[Any] = Field(default=None, init_var=False)
+  type_value: T.Type[Any] = Field(default=None, init_var=False)
   type_hint: str = Field(default=None, init_var=False)
   required: bool = False
 

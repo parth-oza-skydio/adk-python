@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 from __future__ import annotations
+import typing as T
 
 import copy
 from datetime import datetime
@@ -132,7 +133,7 @@ class StorageSession(Base):
       DateTime(), default=func.now(), onupdate=func.now()
   )
 
-  storage_events: list["StorageEvent"] = relationship(
+  storage_events: T.List["StorageEvent"] = relationship(
       "StorageEvent",
       back_populates="storage_session",
   )
@@ -167,13 +168,13 @@ class StorageEvent(Base):
   timestamp: datetime = Column(
       PreciseTimestamp, default=func.now()
   )
-  content: dict[str, Any] = Column(DynamicJSON, nullable=True)
+  content: T.Dict[str, Any] = Column(DynamicJSON, nullable=True)
   actions: MutableDict[str, Any] = Column(PickleType)
 
   long_running_tool_ids_json: Optional[str] = Column(
       Text, nullable=True
   )
-  grounding_metadata: dict[str, Any] = Column(
+  grounding_metadata: T.Dict[str, Any] = Column(
       DynamicJSON, nullable=True
   )
   partial: bool = Column(Boolean, nullable=True)
@@ -198,7 +199,7 @@ class StorageEvent(Base):
   )
 
   @property
-  def long_running_tool_ids(self) -> set[str]:
+  def long_running_tool_ids(self) -> T.Set[str]:
     return (
         set(json.loads(self.long_running_tool_ids_json))
         if self.long_running_tool_ids_json
@@ -206,7 +207,7 @@ class StorageEvent(Base):
     )
 
   @long_running_tool_ids.setter
-  def long_running_tool_ids(self, value: set[str]):
+  def long_running_tool_ids(self, value: T.Set[str]):
     if value is None:
       self.long_running_tool_ids_json = None
     else:
@@ -301,7 +302,7 @@ class DatabaseSessionService(BaseSessionService):
       *,
       app_name: str,
       user_id: str,
-      state: Optional[dict[str, Any]] = None,
+      state: Optional[T.Dict[str, Any]] = None,
       session_id: Optional[str] = None,
   ) -> Session:
     # 1. Populate states.
@@ -596,7 +597,7 @@ def convert_event(event: StorageEvent) -> Event:
   )
 
 
-def _extract_state_delta(state: dict[str, Any]):
+def _extract_state_delta(state: T.Dict[str, Any]):
   app_state_delta = {}
   user_state_delta = {}
   session_state_delta = {}

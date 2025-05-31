@@ -13,6 +13,7 @@
 # limitations under the License.
 
 from __future__ import annotations
+import typing as T
 
 from abc import ABC
 import os
@@ -61,7 +62,7 @@ class BaseTool(ABC):
     return None
 
   async def run_async(
-      self, *, args: dict[str, Any], tool_context: ToolContext
+      self, *, args: T.Dict[str, Any], tool_context: ToolContext
   ) -> Any:
     """Runs the tool with the given arguments and context.
 

@@ -1,3 +1,5 @@
+import typing as T
+
 # Copyright 2025 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -24,7 +26,7 @@ __all__ = [
 ]
 
 
-def _create_empty_state(agent: BaseAgent, all_state: dict[str, Any]):
+def _create_empty_state(agent: BaseAgent, all_state: T.Dict[str, Any]):
   for sub_agent in agent.sub_agents:
     _create_empty_state(sub_agent, all_state)
 
@@ -38,8 +40,8 @@ def _create_empty_state(agent: BaseAgent, all_state: dict[str, Any]):
 
 
 def create_empty_state(
-    agent: BaseAgent, initialized_states: Optional[dict[str, Any]] = None
-) -> dict[str, Any]:
+    agent: BaseAgent, initialized_states: Optional[T.Dict[str, Any]] = None
+) -> T.Dict[str, Any]:
   """Creates empty str for non-initialized states."""
   non_initialized_states = {}
   _create_empty_state(agent, non_initialized_states)

@@ -1,3 +1,5 @@
+import typing as T
+
 # Copyright 2025 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -25,4 +27,4 @@ class Example(BaseModel):
   """
 
   input: types.Content
-  output: list[types.Content]
+  output: T.List[types.Content]

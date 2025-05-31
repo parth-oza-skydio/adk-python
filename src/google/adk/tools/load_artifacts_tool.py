@@ -13,6 +13,7 @@
 # limitations under the License.
 
 from __future__ import annotations
+import typing as T
 
 import json
 from typing import Any
@@ -56,9 +57,9 @@ class LoadArtifactsTool(BaseTool):
 
   @override
   async def run_async(
-      self, *, args: dict[str, Any], tool_context: ToolContext
+      self, *, args: T.Dict[str, Any], tool_context: ToolContext
   ) -> Any:
-    artifact_names: list[str] = args.get('artifact_names', [])
+    artifact_names: T.List[str] = args.get('artifact_names', [])
     return {'artifact_names': artifact_names}
 
   @override

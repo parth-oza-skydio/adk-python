@@ -13,6 +13,7 @@
 # limitations under the License.
 
 from __future__ import annotations
+import typing as T
 
 from typing import Any
 from typing import TYPE_CHECKING
@@ -86,7 +87,7 @@ class AgentTool(BaseTool):
   async def run_async(
       self,
       *,
-      args: dict[str, Any],
+      args: T.Dict[str, Any],
       tool_context: ToolContext,
   ) -> Any:
     from ..agents.llm_agent import LlmAgent

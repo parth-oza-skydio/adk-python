@@ -1,3 +1,5 @@
+import typing as T
+
 # Copyright 2025 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -25,7 +27,7 @@ class BaseExampleProvider(abc.ABC):
   """
 
   @abc.abstractmethod
-  def get_examples(self, query: str) -> list[Example]:
+  def get_examples(self, query: str) -> T.List[Example]:
     """Returns a list of examples for a given query.
 
     Args:

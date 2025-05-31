@@ -13,6 +13,7 @@
 # limitations under the License.
 
 from __future__ import annotations
+import typing as T
 
 import asyncio
 import collections
@@ -279,7 +280,7 @@ def cli_run(
 )
 def cli_eval(
     agent_module_file_path: str,
-    eval_set_file_path: tuple[str],
+    eval_set_file_path: T.Tuple[str],
     config_file_path: str,
     print_detailed_results: bool,
 ):
@@ -349,7 +350,7 @@ def cli_eval(
 
     eval_set_id_to_eval_cases[eval_set.eval_set_id] = eval_cases
 
-  async def _collect_eval_results() -> list[EvalCaseResult]:
+  async def _collect_eval_results() -> T.List[EvalCaseResult]:
     session_service = InMemorySessionService()
     eval_case_results = []
     async for eval_case_result in run_evals(
@@ -491,7 +492,7 @@ def cli_web(
     agents_dir: str,
     session_db_url: str = "",
     log_level: str = "INFO",
-    allow_origins: Optional[list[str]] = None,
+    allow_origins: Optional[T.List[str]] = None,
     host: str = "127.0.0.1",
     port: int = 8000,
     trace_to_cloud: bool = False,
@@ -564,7 +565,7 @@ def cli_api_server(
     agents_dir: str,
     session_db_url: str = "",
     log_level: str = "INFO",
-    allow_origins: Optional[list[str]] = None,
+    allow_origins: Optional[T.List[str]] = None,
     host: str = "127.0.0.1",
     port: int = 8000,
     trace_to_cloud: bool = False,

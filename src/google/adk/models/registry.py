@@ -15,6 +15,7 @@
 """The registry class for model."""
 
 from __future__ import annotations
+import typing as T
 
 from functools import lru_cache
 import logging
@@ -27,7 +28,7 @@ if TYPE_CHECKING:
 logger = logging.getLogger('google_adk.' + __name__)
 
 
-_llm_registry_dict: dict[str, type[BaseLlm]] = {}
+_llm_registry_dict: T.Dict[str, T.Type[BaseLlm]] = {}
 """Registry for LLMs.
 
 Key is the regex that matches the model name.
@@ -52,7 +53,7 @@ class LLMRegistry:
     return LLMRegistry.resolve(model)(model=model)
 
   @staticmethod
-  def _register(model_name_regex: str, llm_cls: type[BaseLlm]):
+  def _register(model_name_regex: str, llm_cls: T.Type[BaseLlm]):
     """Registers a new LLM class.
 
     Args:
@@ -71,7 +72,7 @@ class LLMRegistry:
     _llm_registry_dict[model_name_regex] = llm_cls
 
   @staticmethod
-  def register(llm_cls: type[BaseLlm]):
+  def register(llm_cls: T.Type[BaseLlm]):
     """Registers a new LLM class.
 
     Args:
@@ -83,7 +84,7 @@ class LLMRegistry:
 
   @staticmethod
   @lru_cache(maxsize=32)
-  def resolve(model: str) -> type[BaseLlm]:
+  def resolve(model: str) -> T.Type[BaseLlm]:
     """Resolves the model to a BaseLlm subclass.
 
     Args:

@@ -15,6 +15,7 @@
 """Unit tests for utilities in cli."""
 
 from __future__ import annotations
+import typing as T
 
 import json
 from pathlib import Path
@@ -209,7 +210,7 @@ async def test_run_interactively_whitespace_and_exit(
   monkeypatch.setattr("builtins.input", lambda *_a, **_k: next(answers))
 
   # capture assisted echo
-  echoed: list[str] = []
+  echoed: T.List[str] = []
   monkeypatch.setattr(click, "echo", lambda msg: echoed.append(msg))
 
   await cli.run_interactively(root_agent, artifact_service, sess, svc)

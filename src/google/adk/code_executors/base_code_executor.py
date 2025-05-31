@@ -1,3 +1,5 @@
+import typing as T
+
 # Copyright 2025 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -60,7 +62,7 @@ class BaseCodeExecutor(BaseModel):
   The number of attempts to retry on consecutive code execution errors. Default to 2.
   """
 
-  code_block_delimiters: List[tuple[str, str]] = [
+  code_block_delimiters: List[T.Tuple[str, str]] = [
       ('```tool_code\n', '\n```'),
       ('```python\n', '\n```'),
   ]
@@ -74,7 +76,7 @@ class BaseCodeExecutor(BaseModel):
   ```
   """
 
-  execution_result_delimiters: tuple[str, str] = ('```tool_output\n', '\n```')
+  execution_result_delimiters: T.Tuple[str, str] = ('```tool_output\n', '\n```')
   """
   The delimiters to format the code execution result.
   """

@@ -1,3 +1,5 @@
+import typing as T
+
 # Copyright 2025 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -39,8 +41,8 @@ class IntegrationClient:
       integration: Optional[str] = None,
       triggers: Optional[List[str]] = None,
       connection: Optional[str] = None,
-      entity_operations: Optional[dict[str, list[str]]] = None,
-      actions: Optional[list[str]] = None,
+      entity_operations: Optional[T.Dict[str, T.List[str]]] = None,
+      actions: Optional[T.List[str]] = None,
       service_account_json: Optional[str] = None,
   ):
     """Initializes the ApplicationIntegrationClient.

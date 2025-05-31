@@ -1,3 +1,5 @@
+import typing as T
+
 # Copyright 2025 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -24,7 +26,7 @@ from ...sessions.session import Session
 
 
 @deprecated(reason='Use convert_session_to_eval_invocations instead.')
-def convert_session_to_eval_format(session: Session) -> list[dict[str, Any]]:
+def convert_session_to_eval_format(session: Session) -> T.List[T.Dict[str, Any]]:
   """Converts a session data into eval format.
 
   Args:
@@ -100,7 +102,7 @@ def convert_session_to_eval_format(session: Session) -> list[dict[str, Any]]:
   return eval_case
 
 
-def convert_session_to_eval_invocations(session: Session) -> list[Invocation]:
+def convert_session_to_eval_invocations(session: Session) -> T.List[Invocation]:
   """Converts a session data into a list of Invocation.
 
   Args:
@@ -109,7 +111,7 @@ def convert_session_to_eval_invocations(session: Session) -> list[Invocation]:
   Returns:
       list: A list of invocation.
   """
-  invocations: list[Invocation] = []
+  invocations: T.List[Invocation] = []
   events = session.events if session and session.events else []
 
   for event in events:
@@ -123,8 +125,8 @@ def convert_session_to_eval_invocations(session: Session) -> list[Invocation]:
       invocaton_timestamp = event.timestamp
 
       # Find the corresponding tool usage or response for the query
-      tool_uses: list[genai_types.FunctionCall] = []
-      intermediate_responses: list[Tuple[str, list[genai_types.Part]]] = []
+      tool_uses: T.List[genai_types.FunctionCall] = []
+      intermediate_responses: T.List[Tuple[str, T.List[genai_types.Part]]] = []
 
       # Check subsequent events to extract tool uses or responses for this turn.
       for subsequent_event in events[events.index(event) + 1 :]:

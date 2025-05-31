@@ -1,3 +1,5 @@
+import typing as T
+
 # Copyright 2025 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -35,7 +37,7 @@ _CODE_EXECUTION_RESULTS_KEY = '_code_execution_results'
 class CodeExecutorContext:
   """The persistent context used to configure the code executor."""
 
-  _context: dict[str, Any]
+  _context: T.Dict[str, Any]
 
   def __init__(self, session_state: State):
     """Initializes the code executor context.
@@ -46,7 +48,7 @@ class CodeExecutorContext:
     self._context = self._get_code_executor_context(session_state)
     self._session_state = session_state
 
-  def get_state_delta(self) -> dict[str, Any]:
+  def get_state_delta(self) -> T.Dict[str, Any]:
     """Gets the state delta to update in the persistent session state.
 
     Returns:
@@ -73,7 +75,7 @@ class CodeExecutorContext:
     """
     self._context[_SESSION_ID_KEY] = session_id
 
-  def get_processed_file_names(self) -> list[str]:
+  def get_processed_file_names(self) -> T.List[str]:
     """Gets the processed file names from the session state.
 
     Returns:
@@ -93,7 +95,7 @@ class CodeExecutorContext:
       self._context[_PROCESSED_FILE_NAMES_KEY] = []
     self._context[_PROCESSED_FILE_NAMES_KEY].extend(file_names)
 
-  def get_input_files(self) -> list[File]:
+  def get_input_files(self) -> T.List[File]:
     """Gets the code executor input file names from the session state.
 
     Returns:
@@ -105,7 +107,7 @@ class CodeExecutorContext:
 
   def add_input_files(
       self,
-      input_files: list[File],
+      input_files: T.List[File],
   ):
     """Adds the input files to the code executor context.
 
@@ -188,7 +190,7 @@ class CodeExecutorContext:
         'timestamp': int(datetime.datetime.now().timestamp()),
     })
 
-  def _get_code_executor_context(self, session_state: State) -> dict[str, Any]:
+  def _get_code_executor_context(self, session_state: State) -> T.Dict[str, Any]:
     """Gets the code executor context from the session state.
 
     Args:

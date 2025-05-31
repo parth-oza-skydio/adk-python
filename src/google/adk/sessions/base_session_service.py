@@ -1,3 +1,5 @@
+import typing as T
+
 # Copyright 2025 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -37,7 +39,7 @@ class ListSessionsResponse(BaseModel):
   The events and states are not set within each Session object.
   """
 
-  sessions: list[Session] = Field(default_factory=list)
+  sessions: T.List[Session] = Field(default_factory=list)
 
 
 class BaseSessionService(abc.ABC):
@@ -52,7 +54,7 @@ class BaseSessionService(abc.ABC):
       *,
       app_name: str,
       user_id: str,
-      state: Optional[dict[str, Any]] = None,
+      state: Optional[T.Dict[str, Any]] = None,
       session_id: Optional[str] = None,
   ) -> Session:
     """Creates a new session.

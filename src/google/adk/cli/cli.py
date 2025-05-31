@@ -13,6 +13,7 @@
 # limitations under the License.
 
 from __future__ import annotations
+import typing as T
 
 from datetime import datetime
 from typing import Optional
@@ -33,8 +34,8 @@ from .utils.agent_loader import AgentLoader
 
 
 class InputFile(BaseModel):
-  state: dict[str, object]
-  queries: list[str]
+  state: T.Dict[str, object]
+  queries: T.List[str]
 
 
 async def run_input_file(

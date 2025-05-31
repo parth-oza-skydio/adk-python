@@ -1,3 +1,5 @@
+import typing as T
+
 # Copyright 2025 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -93,7 +95,7 @@ class AgentEvaluator:
   async def evaluate_eval_set(
       agent_module: str,
       eval_set: EvalSet,
-      criteria: dict[str, float],
+      criteria: T.Dict[str, float],
       num_runs=NUM_RUNS,
       agent_name=None,
   ):
@@ -219,8 +221,8 @@ class AgentEvaluator:
   @staticmethod
   def _load_eval_set_from_file(
       eval_set_file: str,
-      criteria: dict[str, float],
-      initial_session: dict[str, Any],
+      criteria: T.Dict[str, float],
+      initial_session: T.Dict[str, Any],
   ) -> EvalSet:
     """Loads an EvalSet from the given file."""
     if os.path.isfile(eval_set_file):
@@ -252,8 +254,8 @@ class AgentEvaluator:
   @staticmethod
   def _get_eval_set_from_old_format(
       eval_set_file: str,
-      criteria: dict[str, float],
-      initial_session: dict[str, Any],
+      criteria: T.Dict[str, float],
+      initial_session: T.Dict[str, Any],
   ) -> EvalSet:
     data = AgentEvaluator._load_dataset(eval_set_file)[0]
     AgentEvaluator._validate_input([data], criteria)

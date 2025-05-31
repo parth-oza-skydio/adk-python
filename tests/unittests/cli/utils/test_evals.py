@@ -1,3 +1,5 @@
+import typing as T
+
 # Copyright 2025 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -21,7 +23,7 @@ from google.adk.sessions.session import Session
 from google.genai import types
 
 
-def build_event(author: str, parts_content: list[dict]) -> Event:
+def build_event(author: str, parts_content: T.List[dict]) -> Event:
   """Builds an Event object with specified parts."""
   parts = []
   for p_data in parts_content:

@@ -1,3 +1,5 @@
+import typing as T
+
 # Copyright 2025 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,7 +24,7 @@ class State:
   USER_PREFIX = "user:"
   TEMP_PREFIX = "temp:"
 
-  def __init__(self, value: dict[str, Any], delta: dict[str, Any]):
+  def __init__(self, value: T.Dict[str, Any], delta: T.Dict[str, Any]):
     """
     Args:
       value: The current value of the state dict.
@@ -58,12 +60,12 @@ class State:
       return default
     return self[key]
 
-  def update(self, delta: dict[str, Any]):
+  def update(self, delta: T.Dict[str, Any]):
     """Updates the state dict with the given delta."""
     self._value.update(delta)
     self._delta.update(delta)
 
-  def to_dict(self) -> dict[str, Any]:
+  def to_dict(self) -> T.Dict[str, Any]:
     """Returns the state dict."""
     result = {}
     result.update(self._value)

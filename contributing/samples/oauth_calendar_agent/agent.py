@@ -1,3 +1,5 @@
+import typing as T
+
 # Copyright 2025 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -56,7 +58,7 @@ def list_calendar_events(
     end_time: str,
     limit: int,
     tool_context: ToolContext,
-) -> list[dict]:
+) -> T.List[dict]:
   """Search for calendar events.
 
   Example:
@@ -78,7 +80,7 @@ def list_calendar_events(
       limit (int): The maximum number of results to return.
 
   Returns:
-      list[dict]: A list of events that match the search criteria.
+      T.List[dict]: A list of events that match the search criteria.
   """
   creds = None
 

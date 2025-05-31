@@ -1,3 +1,5 @@
+import typing as T
+
 # Copyright 2025 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -55,7 +57,7 @@ class TestRunner:
         app_name=self.app_name, user_id=self.user_id, session_id=session_id
     ).id
 
-  def run(self, prompt: str) -> list[Event]:
+  def run(self, prompt: str) -> T.List[Event]:
     current_session = self.session_service.get_session(
         app_name=self.app_name,
         user_id=self.user_id,
@@ -81,7 +83,7 @@ class TestRunner:
         session_id=self.current_session_id,
     )
 
-  def get_events(self) -> list[Event]:
+  def get_events(self) -> T.List[Event]:
     return self.get_current_session().events
 
   @classmethod

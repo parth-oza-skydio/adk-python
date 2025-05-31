@@ -13,6 +13,7 @@
 # limitations under the License.
 
 from __future__ import annotations
+import typing as T
 
 from typing import Any
 from typing import Optional
@@ -78,7 +79,7 @@ class LlmResponse(BaseModel):
   Usually it's due to user interruption during a bidi streaming.
   """
 
-  custom_metadata: Optional[dict[str, Any]] = None
+  custom_metadata: Optional[T.Dict[str, Any]] = None
   """The custom metadata of the LlmResponse.
 
   An optional key-value pair to label an LlmResponse.

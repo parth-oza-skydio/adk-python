@@ -1,3 +1,5 @@
+import typing as T
+
 # Copyright 2025 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,7 +21,7 @@ from .tool_context import ToolContext
 
 
 def get_user_choice(
-    options: list[str], tool_context: ToolContext
+    options: T.List[str], tool_context: ToolContext
 ) -> Optional[str]:
   """Provides the options to the user and asks them to choose one."""
   tool_context.actions.skip_summarization = True

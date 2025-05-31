@@ -1,3 +1,5 @@
+import typing as T
+
 # Copyright 2025 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -46,7 +48,7 @@ _FUNCTION_RESPONSE_SUFFIX = "\n```\n"
 
 # TODO(yaojie): Add unit tests for this function.
 def convert_examples_to_text(
-    examples: list[Example], model: Optional[str]
+    examples: T.List[Example], model: Optional[str]
 ) -> str:
   """Converts a list of examples to a string that can be used in a system instruction."""
   examples_str = ""
@@ -112,7 +114,7 @@ def _get_latest_message_from_user(session: "Session") -> str:
 
 
 def build_example_si(
-    examples: Union[list[Example], BaseExampleProvider],
+    examples: Union[T.List[Example], BaseExampleProvider],
     query: str,
     model: Optional[str],
 ) -> str:

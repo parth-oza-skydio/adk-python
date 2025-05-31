@@ -1,3 +1,5 @@
+import typing as T
+
 # Copyright 2025 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -54,7 +56,7 @@ class CodeExecutionInput:
   The code to execute.
   """
 
-  input_files: list[File] = dataclasses.field(default_factory=list)
+  input_files: T.List[File] = dataclasses.field(default_factory=list)
   """
   The input files available to the code.
   """
@@ -79,7 +81,7 @@ class CodeExecutionResult:
   The standard error of the code execution.
   """
 
-  output_files: list[File] = dataclasses.field(default_factory=list)
+  output_files: T.List[File] = dataclasses.field(default_factory=list)
   """
   The output files from the code execution.
   """
@@ -110,7 +112,7 @@ class CodeExecutionUtils:
   @staticmethod
   def extract_code_and_truncate_content(
       content: types.Content,
-      code_block_delimiters: List[tuple[str, str]],
+      code_block_delimiters: List[T.Tuple[str, str]],
   ) -> Optional[str]:
     """Extracts the first code block from the content and truncate everything after it.
 
@@ -221,8 +223,8 @@ class CodeExecutionUtils:
   @staticmethod
   def convert_code_execution_parts(
       content: types.Content,
-      code_block_delimiter: tuple[str, str],
-      execution_result_delimiters: tuple[str, str],
+      code_block_delimiter: T.Tuple[str, str],
+      execution_result_delimiters: T.Tuple[str, str],
   ):
     """Converts the code execution parts to text parts in a Content.
 

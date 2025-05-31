@@ -1,3 +1,5 @@
+import typing as T
+
 # Copyright 2025 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -75,7 +77,7 @@ class FunctionTool(BaseTool):
 
   @override
   async def run_async(
-      self, *, args: dict[str, Any], tool_context: ToolContext
+      self, *, args: T.Dict[str, Any], tool_context: ToolContext
   ) -> Any:
     args_to_call = args.copy()
     signature = inspect.signature(self.func)
@@ -115,7 +117,7 @@ You could retry calling this tool, but it is IMPORTANT for you to provide all th
   async def _call_live(
       self,
       *,
-      args: dict[str, Any],
+      args: T.Dict[str, Any],
       tool_context: ToolContext,
       invocation_context,
   ) -> Any:
@@ -135,7 +137,7 @@ You could retry calling this tool, but it is IMPORTANT for you to provide all th
 
   def _get_mandatory_args(
       self,
-  ) -> list[str]:
+  ) -> T.List[str]:
     """Identifies mandatory parameters (those without default values) for a function.
 
     Returns:

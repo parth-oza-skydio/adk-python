@@ -15,6 +15,7 @@
 """A retrieval tool that uses Vertex AI RAG to retrieve data."""
 
 from __future__ import annotations
+import typing as T
 
 import logging
 from typing import Any
@@ -41,8 +42,8 @@ class VertexAiRagRetrieval(BaseRetrievalTool):
       *,
       name: str,
       description: str,
-      rag_corpora: list[str] = None,
-      rag_resources: list[rag.RagResource] = None,
+      rag_corpora: T.List[str] = None,
+      rag_resources: T.List[rag.RagResource] = None,
       similarity_top_k: int = None,
       vector_distance_threshold: float = None,
   ):
@@ -86,7 +87,7 @@ class VertexAiRagRetrieval(BaseRetrievalTool):
   async def run_async(
       self,
       *,
-      args: dict[str, Any],
+      args: T.Dict[str, Any],
       tool_context: ToolContext,
   ) -> Any:
 

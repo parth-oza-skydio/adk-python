@@ -14,6 +14,7 @@
 
 
 from __future__ import annotations
+import typing as T
 
 import asyncio
 from contextlib import asynccontextmanager
@@ -164,8 +165,8 @@ class AddSessionToEvalSetRequest(common.BaseModel):
 
 
 class RunEvalRequest(common.BaseModel):
-  eval_ids: list[str]  # if empty, then all evals in the eval set are run.
-  eval_metrics: list[EvalMetric]
+  eval_ids: T.List[str]  # if empty, then all evals in the eval set are run.
+  eval_metrics: T.List[EvalMetric]
 
 
 class RunEvalResult(common.BaseModel):
@@ -173,14 +174,14 @@ class RunEvalResult(common.BaseModel):
   eval_set_id: str
   eval_id: str
   final_eval_status: EvalStatus
-  eval_metric_results: list[tuple[EvalMetric, EvalMetricResult]] = Field(
+  eval_metric_results: T.List[T.Tuple[EvalMetric, EvalMetricResult]] = Field(
       deprecated=True,
       description=(
           "This field is deprecated, use overall_eval_metric_results instead."
       ),
   )
-  overall_eval_metric_results: list[EvalMetricResult]
-  eval_metric_result_per_invocation: list[EvalMetricResultPerInvocation]
+  overall_eval_metric_results: T.List[EvalMetricResult]
+  eval_metric_result_per_invocation: T.List[EvalMetricResultPerInvocation]
   user_id: str
   session_id: str
 
@@ -193,14 +194,14 @@ def get_fast_api_app(
     *,
     agents_dir: str,
     session_db_url: str = "",
-    allow_origins: Optional[list[str]] = None,
+    allow_origins: Optional[T.List[str]] = None,
     web: bool,
     trace_to_cloud: bool = False,
     lifespan: Optional[Lifespan[FastAPI]] = None,
 ) -> FastAPI:
   # InMemory tracing dict.
-  trace_dict: dict[str, Any] = {}
-  session_trace_dict: dict[str, Any] = {}
+  trace_dict: T.Dict[str, Any] = {}
+  session_trace_dict: T.Dict[str, Any] = {}
 
   # Set up tracing in the FastAPI server.
   provider = TracerProvider()
@@ -280,7 +281,7 @@ def get_fast_api_app(
   agent_loader = AgentLoader(agents_dir)
 
   @app.get("/list-apps")
-  def list_apps() -> list[str]:
+  def list_apps() -> T.List[str]:
     base_path = Path.cwd() / agents_dir
     if not base_path.exists():
       raise HTTPException(status_code=404, detail="Path not found")
@@ -341,7 +342,7 @@ def get_fast_api_app(
       "/apps/{app_name}/users/{user_id}/sessions",
       response_model_exclude_none=True,
   )
-  async def list_sessions(app_name: str, user_id: str) -> list[Session]:
+  async def list_sessions(app_name: str, user_id: str) -> T.List[Session]:
     # Connect to managed session if agent_engine_id is set.
     app_name = agent_engine_id if agent_engine_id else app_name
     list_sessions_response = await session_service.list_sessions(
@@ -362,7 +363,7 @@ def get_fast_api_app(
       app_name: str,
       user_id: str,
       session_id: str,
-      state: Optional[dict[str, Any]] = None,
+      state: Optional[T.Dict[str, Any]] = None,
   ) -> Session:
     # Connect to managed session if agent_engine_id is set.
     app_name = agent_engine_id if agent_engine_id else app_name
@@ -388,7 +389,7 @@ def get_fast_api_app(
   async def create_session(
       app_name: str,
       user_id: str,
-      state: Optional[dict[str, Any]] = None,
+      state: Optional[T.Dict[str, Any]] = None,
   ) -> Session:
     # Connect to managed session if agent_engine_id is set.
     app_name = agent_engine_id if agent_engine_id else app_name
@@ -425,7 +426,7 @@ def get_fast_api_app(
       "/apps/{app_name}/eval_sets",
       response_model_exclude_none=True,
   )
-  def list_eval_sets(app_name: str) -> list[str]:
+  def list_eval_sets(app_name: str) -> T.List[str]:
     """Lists all eval sets for the given app."""
     return eval_sets_manager.list_eval_sets(app_name)
 
@@ -471,7 +472,7 @@ def get_fast_api_app(
   def list_evals_in_eval_set(
       app_name: str,
       eval_set_id: str,
-  ) -> list[str]:
+  ) -> T.List[str]:
     """Lists all evals in an eval set."""
     eval_set_data = eval_sets_manager.get_eval_set(app_name, eval_set_id)
 
@@ -483,7 +484,7 @@ def get_fast_api_app(
   )
   async def run_eval(
       app_name: str, eval_set_id: str, req: RunEvalRequest
-  ) -> list[RunEvalResult]:
+  ) -> T.List[RunEvalResult]:
     """Runs an eval given the details in the eval request."""
     from .cli_eval import run_evals
 
@@ -562,7 +563,7 @@ def get_fast_api_app(
       "/apps/{app_name}/eval_results",
       response_model_exclude_none=True,
   )
-  def list_eval_results(app_name: str) -> list[str]:
+  def list_eval_results(app_name: str) -> T.List[str]:
     """Lists all eval results for the given app."""
     return eval_set_results_manager.list_eval_set_results(app_name)
 
@@ -626,7 +627,7 @@ def get_fast_api_app(
   )
   async def list_artifact_names(
       app_name: str, user_id: str, session_id: str
-  ) -> list[str]:
+  ) -> T.List[str]:
     app_name = agent_engine_id if agent_engine_id else app_name
     return await artifact_service.list_artifact_keys(
         app_name=app_name, user_id=user_id, session_id=session_id
@@ -638,7 +639,7 @@ def get_fast_api_app(
   )
   async def list_artifact_versions(
       app_name: str, user_id: str, session_id: str, artifact_name: str
-  ) -> list[int]:
+  ) -> T.List[int]:
     app_name = agent_engine_id if agent_engine_id else app_name
     return await artifact_service.list_versions(
         app_name=app_name,
@@ -662,7 +663,7 @@ def get_fast_api_app(
     )
 
   @app.post("/run", response_model_exclude_none=True)
-  async def agent_run(req: AgentRunRequest) -> list[Event]:
+  async def agent_run(req: AgentRunRequest) -> T.List[Event]:
     # Connect to managed session if agent_engine_id is set.
     app_name = agent_engine_id if agent_engine_id else req.app_name
     session = await session_service.get_session(

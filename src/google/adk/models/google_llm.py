@@ -14,6 +14,7 @@
 
 
 from __future__ import annotations
+import typing as T
 
 import contextlib
 from functools import cached_property
@@ -53,7 +54,7 @@ class Gemini(BaseLlm):
 
   @staticmethod
   @override
-  def supported_models() -> list[str]:
+  def supported_models() -> T.List[str]:
     """Provides the list of supported models.
 
     Returns:
@@ -179,7 +180,7 @@ class Gemini(BaseLlm):
     return 'vertex' if self.api_client.vertexai else 'ml_dev'
 
   @cached_property
-  def _tracking_headers(self) -> dict[str, str]:
+  def _tracking_headers(self) -> T.Dict[str, str]:
     framework_label = f'google-adk/{version.__version__}'
     language_label = 'gl-python/' + sys.version.split()[0]
     version_header_value = f'{framework_label} {language_label}'
@@ -249,8 +250,8 @@ def _build_function_declaration_log(
 
 
 def _build_request_log(req: LlmRequest) -> str:
-  function_decls: list[types.FunctionDeclaration] = cast(
-      list[types.FunctionDeclaration],
+  function_decls: T.List[types.FunctionDeclaration] = cast(
+      T.List[types.FunctionDeclaration],
       req.config.tools[0].function_declarations if req.config.tools else [],
   )
   function_logs = (

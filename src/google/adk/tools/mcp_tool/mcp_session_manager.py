@@ -13,6 +13,7 @@
 # limitations under the License.
 
 from __future__ import annotations
+import typing as T
 
 from contextlib import AsyncExitStack
 from datetime import timedelta
@@ -55,7 +56,7 @@ class SseServerParams(BaseModel):
   """
 
   url: str
-  headers: dict[str, Any] | None = None
+  headers: T.Dict[str, Any] | None = None
   timeout: float = 5
   sse_read_timeout: float = 60 * 5
 
@@ -68,7 +69,7 @@ class StreamableHTTPServerParams(BaseModel):
   """
 
   url: str
-  headers: dict[str, Any] | None = None
+  headers: T.Dict[str, Any] | None = None
   timeout: float = 5
   sse_read_timeout: float = 60 * 5
   terminate_on_close: bool = True

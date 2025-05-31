@@ -15,6 +15,7 @@
 """Handles function callings for LLM flow."""
 
 from __future__ import annotations
+import typing as T
 
 import asyncio
 import inspect
@@ -74,9 +75,9 @@ def remove_client_function_call_id(content: types.Content) -> None:
 
 
 def get_long_running_function_calls(
-    function_calls: list[types.FunctionCall],
-    tools_dict: dict[str, BaseTool],
-) -> set[str]:
+    function_calls: T.List[types.FunctionCall],
+    tools_dict: T.Dict[str, BaseTool],
+) -> T.Set[str]:
   long_running_tool_ids = set()
   for function_call in function_calls:
     if (
@@ -126,8 +127,8 @@ def generate_auth_event(
 async def handle_function_calls_async(
     invocation_context: InvocationContext,
     function_call_event: Event,
-    tools_dict: dict[str, BaseTool],
-    filters: Optional[set[str]] = None,
+    tools_dict: T.Dict[str, BaseTool],
+    filters: Optional[T.Set[str]] = None,
 ) -> Optional[Event]:
   """Calls the functions and returns the function response event."""
   from ...agents.llm_agent import LlmAgent
@@ -138,7 +139,7 @@ async def handle_function_calls_async(
 
   function_calls = function_call_event.get_function_calls()
 
-  function_response_events: list[Event] = []
+  function_response_events: T.List[Event] = []
   for function_call in function_calls:
     if filters and function_call.id not in filters:
       continue
@@ -219,7 +220,7 @@ async def handle_function_calls_async(
 async def handle_function_calls_live(
     invocation_context: InvocationContext,
     function_call_event: Event,
-    tools_dict: dict[str, BaseTool],
+    tools_dict: T.Dict[str, BaseTool],
 ) -> Event:
   """Calls the functions and returns the function response event."""
   from ...agents.llm_agent import LlmAgent
@@ -227,7 +228,7 @@ async def handle_function_calls_live(
   agent = cast(LlmAgent, invocation_context.agent)
   function_calls = function_call_event.get_function_calls()
 
-  function_response_events: list[Event] = []
+  function_response_events: T.List[Event] = []
   for function_call in function_calls:
     tool, tool_context = _get_tool_and_context(
         invocation_context, function_call_event, function_call, tools_dict
@@ -409,7 +410,7 @@ def _get_tool_and_context(
     invocation_context: InvocationContext,
     function_call_event: Event,
     function_call: types.FunctionCall,
-    tools_dict: dict[str, BaseTool],
+    tools_dict: T.Dict[str, BaseTool],
 ):
   if function_call.name not in tools_dict:
     raise ValueError(
@@ -428,7 +429,7 @@ def _get_tool_and_context(
 
 async def __call_tool_live(
     tool: BaseTool,
-    args: dict[str, object],
+    args: T.Dict[str, object],
     tool_context: ToolContext,
     invocation_context: InvocationContext,
 ) -> AsyncGenerator[Event, None]:
@@ -443,7 +444,7 @@ async def __call_tool_live(
 
 async def __call_tool_async(
     tool: BaseTool,
-    args: dict[str, Any],
+    args: T.Dict[str, Any],
     tool_context: ToolContext,
 ) -> Any:
   """Calls the tool."""
@@ -452,7 +453,7 @@ async def __call_tool_async(
 
 def __build_response_event(
     tool: BaseTool,
-    function_result: dict[str, object],
+    function_result: T.Dict[str, object],
     tool_context: ToolContext,
     invocation_context: InvocationContext,
 ) -> Event:
@@ -482,7 +483,7 @@ def __build_response_event(
 
 
 def merge_parallel_function_response_events(
-    function_response_events: list['Event'],
+    function_response_events: T.List['Event'],
 ) -> 'Event':
   if not function_response_events:
     raise ValueError('No function response events provided.')

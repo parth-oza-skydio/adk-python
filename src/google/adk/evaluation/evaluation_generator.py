@@ -13,6 +13,7 @@
 # limitations under the License.
 
 from __future__ import annotations
+import typing as T
 
 import importlib
 from typing import Any
@@ -42,7 +43,7 @@ class EvalCaseResponses(BaseModel):
   """
 
   eval_case: EvalCase
-  responses: list[list[Invocation]]
+  responses: T.List[T.List[Invocation]]
 
 
 class EvaluationGenerator:
@@ -54,7 +55,7 @@ class EvaluationGenerator:
       agent_module_path: str,
       repeat_num: int = 3,
       agent_name: str = None,
-  ) -> list[EvalCaseResponses]:
+  ) -> T.List[EvalCaseResponses]:
     """Returns evaluation responses for the given dataset and agent.
 
     Args:
@@ -112,11 +113,11 @@ class EvaluationGenerator:
 
   @staticmethod
   async def _process_query(
-      invocations: list[Invocation],
+      invocations: T.List[Invocation],
       module_name: str,
       agent_name: Optional[str] = None,
       initial_session: Optional[SessionInput] = None,
-  ) -> list[Invocation]:
+  ) -> T.List[Invocation]:
     """Process a query using the agent and evaluation dataset."""
     module_path = f"{module_name}"
     agent_module = importlib.import_module(module_path)
@@ -135,14 +136,14 @@ class EvaluationGenerator:
 
   @staticmethod
   async def _generate_inferences_from_root_agent(
-      invocations: list[Invocation],
+      invocations: T.List[Invocation],
       root_agent: Agent,
       reset_func: Any,
       initial_session: Optional[SessionInput] = None,
       session_id: Optional[str] = None,
       session_service: Optional[BaseSessionService] = None,
       artifact_service: Optional[BaseArtifactService] = None,
-  ) -> list[Invocation]:
+  ) -> T.List[Invocation]:
     """Scrapes the root agent given the list of Invocations."""
     if not session_service:
       session_service = InMemorySessionService()

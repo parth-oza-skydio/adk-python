@@ -22,6 +22,7 @@
 #    constructs of the framework that are not observable by the SDK.
 
 from __future__ import annotations
+import typing as T
 
 import json
 from typing import Any
@@ -59,7 +60,7 @@ def _safe_json_serialize(obj) -> str:
 
 def trace_tool_call(
     tool: BaseTool,
-    args: dict[str, Any],
+    args: T.Dict[str, Any],
     function_response_event: Event,
 ):
   """Traces tool call.
@@ -199,7 +200,7 @@ def trace_call_llm(
 def trace_send_data(
     invocation_context: InvocationContext,
     event_id: str,
-    data: list[types.Content],
+    data: T.List[types.Content],
 ):
   """Traces the sending of data to the agent.
 
@@ -229,7 +230,7 @@ def trace_send_data(
   )
 
 
-def _build_llm_request_for_trace(llm_request: LlmRequest) -> dict[str, Any]:
+def _build_llm_request_for_trace(llm_request: LlmRequest) -> T.Dict[str, Any]:
   """Builds a dictionary representation of the LLM request for tracing.
 
   This function prepares a dictionary representation of the LlmRequest

@@ -1,3 +1,5 @@
+import typing as T
+
 # Copyright 2025 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -81,7 +83,7 @@ class BaseArtifactService(ABC):
   @abstractmethod
   async def list_artifact_keys(
       self, *, app_name: str, user_id: str, session_id: str
-  ) -> list[str]:
+  ) -> T.List[str]:
     """Lists all the artifact filenames within a session.
 
     Args:
@@ -109,7 +111,7 @@ class BaseArtifactService(ABC):
   @abstractmethod
   async def list_versions(
       self, *, app_name: str, user_id: str, session_id: str, filename: str
-  ) -> list[int]:
+  ) -> T.List[int]:
     """Lists all versions of an artifact.
 
     Args:

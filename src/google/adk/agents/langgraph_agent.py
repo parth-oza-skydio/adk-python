@@ -1,3 +1,5 @@
+import typing as T
+
 # Copyright 2025 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -29,7 +31,7 @@ from .base_agent import BaseAgent
 from .invocation_context import InvocationContext
 
 
-def _get_last_human_messages(events: list[Event]) -> list[HumanMessage]:
+def _get_last_human_messages(events: T.List[Event]) -> T.List[HumanMessage]:
   """Extracts last human messages from given list of events.
 
   Args:
@@ -99,8 +101,8 @@ class LangGraphAgent(BaseAgent):
     yield result_event
 
   def _get_messages(
-      self, events: list[Event]
-  ) -> list[Union[HumanMessage, AIMessage]]:
+      self, events: T.List[Event]
+  ) -> T.List[Union[HumanMessage, AIMessage]]:
     """Extracts messages from given list of events.
 
     If the developer provides their own memory within langgraph, we return the
@@ -119,8 +121,8 @@ class LangGraphAgent(BaseAgent):
       return self._get_conversation_with_agent(events)
 
   def _get_conversation_with_agent(
-      self, events: list[Event]
-  ) -> list[Union[HumanMessage, AIMessage]]:
+      self, events: T.List[Event]
+  ) -> T.List[Union[HumanMessage, AIMessage]]:
     """Extracts messages from given list of events.
 
     Args:

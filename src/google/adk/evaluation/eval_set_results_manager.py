@@ -13,6 +13,7 @@
 # limitations under the License.
 
 from __future__ import annotations
+import typing as T
 
 from abc import ABC
 from abc import abstractmethod
@@ -29,7 +30,7 @@ class EvalSetResultsManager(ABC):
       self,
       app_name: str,
       eval_set_id: str,
-      eval_case_results: list[EvalCaseResult],
+      eval_case_results: T.List[EvalCaseResult],
   ) -> None:
     """Creates and saves a new EvalSetResult given eval_case_results."""
     raise NotImplementedError()
@@ -42,6 +43,6 @@ class EvalSetResultsManager(ABC):
     raise NotImplementedError()
 
   @abstractmethod
-  def list_eval_set_results(self, app_name: str) -> list[str]:
+  def list_eval_set_results(self, app_name: str) -> T.List[str]:
     """Returns the eval result ids that belong to the given app_name."""
     raise NotImplementedError()

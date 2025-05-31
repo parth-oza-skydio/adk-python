@@ -1,3 +1,5 @@
+import typing as T
+
 # Copyright 2025 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -65,7 +67,7 @@ def mock_event_fixture():
 
 
 async def _create_invocation_context(
-    agent: LlmAgent, state: Optional[dict[str, Any]] = None
+    agent: LlmAgent, state: Optional[T.Dict[str, Any]] = None
 ) -> InvocationContext:
   session_service = InMemorySessionService()
   session = await session_service.create_session(

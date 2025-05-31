@@ -1,3 +1,5 @@
+import typing as T
+
 # Copyright 2025 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -34,7 +36,7 @@ class VertexAiExampleStore(BaseExampleProvider):
     self.examples_store_name = examples_store_name
 
   @override
-  def get_examples(self, query: str) -> list[Example]:
+  def get_examples(self, query: str) -> T.List[Example]:
     example_store = example_stores.ExampleStore(self.examples_store_name)
     # Retrieve relevant examples.
     request = {

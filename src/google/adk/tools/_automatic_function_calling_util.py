@@ -13,6 +13,7 @@
 # limitations under the License.
 
 from __future__ import annotations
+import typing as T
 
 import inspect
 from types import FunctionType
@@ -193,7 +194,7 @@ def _get_return_type(func: Callable) -> Any:
 
 def build_function_declaration(
     func: Union[Callable, BaseModel],
-    ignore_params: Optional[list[str]] = None,
+    ignore_params: Optional[T.List[str]] = None,
     variant: Literal['GOOGLE_AI', 'VERTEX_AI', 'DEFAULT'] = 'GOOGLE_AI',
 ) -> types.FunctionDeclaration:
   signature = inspect.signature(func)

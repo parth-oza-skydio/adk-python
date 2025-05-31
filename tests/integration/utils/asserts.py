@@ -1,3 +1,5 @@
+import typing as T
+
 # Copyright 2025 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -36,7 +38,7 @@ def assert_agent_says(
 
 
 def assert_agent_says_in_order(
-    expected_conversation: list[Message], agent_runner: TestRunner
+    expected_conversation: T.List[Message], agent_runner: TestRunner
 ):
   expected_conversation_idx = len(expected_conversation) - 1
   for event in reversed(agent_runner.get_events()):
@@ -55,7 +57,7 @@ def assert_agent_says_in_order(
 
 
 def assert_agent_transfer_path(
-    expected_path: list[str], *, agent_runner: TestRunner
+    expected_path: T.List[str], *, agent_runner: TestRunner
 ):
   events = agent_runner.get_events()
   idx_in_expected_path = len(expected_path) - 1

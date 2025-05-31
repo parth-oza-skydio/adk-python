@@ -1,3 +1,5 @@
+import typing as T
+
 # Copyright 2025 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -31,7 +33,7 @@ from google.genai import types
 from ... import testing_utils
 
 
-def function_call(function_call_id, name, args: dict[str, Any]) -> types.Part:
+def function_call(function_call_id, name, args: T.Dict[str, Any]) -> types.Part:
   part = types.Part.from_function_call(name=name, args=args)
   part.function_call.id = function_call_id
   return part

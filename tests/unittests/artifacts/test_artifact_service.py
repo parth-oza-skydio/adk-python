@@ -1,3 +1,5 @@
+import typing as T
+
 # Copyright 2025 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -98,7 +100,7 @@ class MockBucket:
         name: The name of the bucket.
     """
     self.name = name
-    self.blobs: dict[str, MockBlob] = {}
+    self.blobs: T.Dict[str, MockBlob] = {}
 
   def blob(self, blob_name: str) -> MockBlob:
     """Mocks getting a Blob object (doesn't create it in storage).
@@ -119,7 +121,7 @@ class MockClient:
 
   def __init__(self) -> None:
     """Initializes MockClient."""
-    self.buckets: dict[str, MockBucket] = {}
+    self.buckets: T.Dict[str, MockBucket] = {}
 
   def bucket(self, bucket_name: str) -> MockBucket:
     """Mocks getting a Bucket object."""

@@ -13,6 +13,7 @@
 # limitations under the License.
 
 from __future__ import annotations
+import typing as T
 
 import inspect
 import logging
@@ -62,7 +63,7 @@ _SingleBeforeModelCallback: TypeAlias = Callable[
 
 BeforeModelCallback: TypeAlias = Union[
     _SingleBeforeModelCallback,
-    list[_SingleBeforeModelCallback],
+    T.List[_SingleBeforeModelCallback],
 ]
 
 _SingleAfterModelCallback: TypeAlias = Callable[
@@ -72,27 +73,27 @@ _SingleAfterModelCallback: TypeAlias = Callable[
 
 AfterModelCallback: TypeAlias = Union[
     _SingleAfterModelCallback,
-    list[_SingleAfterModelCallback],
+    T.List[_SingleAfterModelCallback],
 ]
 
 _SingleBeforeToolCallback: TypeAlias = Callable[
-    [BaseTool, dict[str, Any], ToolContext],
+    [BaseTool, T.Dict[str, Any], ToolContext],
     Union[Awaitable[Optional[dict]], Optional[dict]],
 ]
 
 BeforeToolCallback: TypeAlias = Union[
     _SingleBeforeToolCallback,
-    list[_SingleBeforeToolCallback],
+    T.List[_SingleBeforeToolCallback],
 ]
 
 _SingleAfterToolCallback: TypeAlias = Callable[
-    [BaseTool, dict[str, Any], ToolContext, dict],
+    [BaseTool, T.Dict[str, Any], ToolContext, dict],
     Union[Awaitable[Optional[dict]], Optional[dict]],
 ]
 
 AfterToolCallback: TypeAlias = Union[
     _SingleAfterToolCallback,
-    list[_SingleAfterToolCallback],
+    T.List[_SingleAfterToolCallback],
 ]
 
 InstructionProvider: TypeAlias = Callable[
@@ -100,12 +101,12 @@ InstructionProvider: TypeAlias = Callable[
 ]
 
 ToolUnion: TypeAlias = Union[Callable, BaseTool, BaseToolset]
-ExamplesUnion = Union[list[Example], BaseExampleProvider]
+ExamplesUnion = Union[T.List[Example], BaseExampleProvider]
 
 
 async def _convert_tool_union_to_tools(
     tool_union: ToolUnion, ctx: ReadonlyContext
-) -> list[BaseTool]:
+) -> T.List[BaseTool]:
   if isinstance(tool_union, BaseTool):
     return [tool_union]
   if isinstance(tool_union, Callable):
@@ -135,7 +136,7 @@ class LlmAgent(BaseAgent):
   or personality.
   """
 
-  tools: list[ToolUnion] = Field(default_factory=list)
+  tools: T.List[ToolUnion] = Field(default_factory=list)
   """Tools available to this agent."""
 
   generate_content_config: Optional[types.GenerateContentConfig] = None
@@ -168,9 +169,9 @@ class LlmAgent(BaseAgent):
   """
 
   # Controlled input/output configurations - Start
-  input_schema: Optional[type[BaseModel]] = None
+  input_schema: Optional[T.Type[BaseModel]] = None
   """The input schema when agent is used as a tool."""
-  output_schema: Optional[type[BaseModel]] = None
+  output_schema: Optional[T.Type[BaseModel]] = None
   """The output schema when agent replies.
 
   NOTE: when this is set, agent can ONLY reply and CANNOT use any tools, such as
@@ -309,7 +310,7 @@ class LlmAgent(BaseAgent):
 
   async def canonical_instruction(
       self, ctx: ReadonlyContext
-  ) -> tuple[str, bool]:
+  ) -> T.Tuple[str, bool]:
     """The resolved self.instruction field to construct instruction for this agent.
 
     This method is only for use by Agent Development Kit.
@@ -333,7 +334,7 @@ class LlmAgent(BaseAgent):
 
   async def canonical_global_instruction(
       self, ctx: ReadonlyContext
-  ) -> tuple[str, bool]:
+  ) -> T.Tuple[str, bool]:
     """The resolved self.instruction field to construct global instruction.
 
     This method is only for use by Agent Development Kit.
@@ -357,7 +358,7 @@ class LlmAgent(BaseAgent):
 
   async def canonical_tools(
       self, ctx: ReadonlyContext = None
-  ) -> list[BaseTool]:
+  ) -> T.List[BaseTool]:
     """The resolved self.tools field as a list of BaseTool based on the context.
 
     This method is only for use by Agent Development Kit.
@@ -370,7 +371,7 @@ class LlmAgent(BaseAgent):
   @property
   def canonical_before_model_callbacks(
       self,
-  ) -> list[_SingleBeforeModelCallback]:
+  ) -> T.List[_SingleBeforeModelCallback]:
     """The resolved self.before_model_callback field as a list of _SingleBeforeModelCallback.
 
     This method is only for use by Agent Development Kit.
@@ -382,7 +383,7 @@ class LlmAgent(BaseAgent):
     return [self.before_model_callback]
 
   @property
-  def canonical_after_model_callbacks(self) -> list[_SingleAfterModelCallback]:
+  def canonical_after_model_callbacks(self) -> T.List[_SingleAfterModelCallback]:
     """The resolved self.after_model_callback field as a list of _SingleAfterModelCallback.
 
     This method is only for use by Agent Development Kit.
@@ -396,7 +397,7 @@ class LlmAgent(BaseAgent):
   @property
   def canonical_before_tool_callbacks(
       self,
-  ) -> list[BeforeToolCallback]:
+  ) -> T.List[BeforeToolCallback]:
     """The resolved self.before_tool_callback field as a list of BeforeToolCallback.
 
     This method is only for use by Agent Development Kit.
@@ -410,7 +411,7 @@ class LlmAgent(BaseAgent):
   @property
   def canonical_after_tool_callbacks(
       self,
-  ) -> list[AfterToolCallback]:
+  ) -> T.List[AfterToolCallback]:
     """The resolved self.after_tool_callback field as a list of AfterToolCallback.
 
     This method is only for use by Agent Development Kit.

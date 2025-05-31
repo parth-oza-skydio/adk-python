@@ -1,3 +1,5 @@
+import typing as T
+
 # Copyright 2025 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -91,7 +93,7 @@ def function_returning_none() -> None:
   return None
 
 
-def function_returning_empty_dict() -> dict[str, str]:
+def function_returning_empty_dict() -> T.Dict[str, str]:
   """Function for testing with empty dict return value."""
   return {}
 

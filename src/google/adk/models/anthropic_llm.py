@@ -15,6 +15,7 @@
 """Anthropic integration for Claude models."""
 
 from __future__ import annotations
+import typing as T
 
 from functools import cached_property
 import logging
@@ -51,7 +52,7 @@ MAX_TOKEN = 1024
 class ClaudeRequest(BaseModel):
   system_instruction: str
   messages: Iterable[anthropic_types.MessageParam]
-  tools: list[anthropic_types.ToolParam]
+  tools: T.List[anthropic_types.ToolParam]
 
 
 def to_claude_role(role: Optional[str]) -> Literal["user", "assistant"]:
@@ -153,7 +154,7 @@ def message_to_generate_content_response(
   )
 
 
-def _update_type_string(value_dict: dict[str, Any]):
+def _update_type_string(value_dict: T.Dict[str, Any]):
   """Updates 'type' field to expected JSON schema format."""
   if "type" in value_dict:
     value_dict["type"] = value_dict["type"].lower()
@@ -207,7 +208,7 @@ class Claude(BaseLlm):
 
   @staticmethod
   @override
-  def supported_models() -> list[str]:
+  def supported_models() -> T.List[str]:
     return [r"claude-3-.*", r"claude-.*-4.*"]
 
   @override

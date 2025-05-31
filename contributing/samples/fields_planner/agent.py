@@ -1,3 +1,5 @@
+import typing as T
+
 # Copyright 2025 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -38,7 +40,7 @@ def roll_die(sides: int, tool_context: ToolContext) -> int:
   return result
 
 
-async def check_prime(nums: list[int]) -> str:
+async def check_prime(nums: T.List[int]) -> str:
   """Check if a given list of numbers are prime.
 
   Args:

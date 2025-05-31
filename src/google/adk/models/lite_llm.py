@@ -1,3 +1,5 @@
+import typing as T
+
 # Copyright 2025 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -144,7 +146,7 @@ def _safe_json_serialize(obj) -> str:
 
 def _content_to_message_param(
     content: types.Content,
-) -> Union[Message, list[Message]]:
+) -> Union[Message, T.List[Message]]:
   """Converts a types.Content to a litellm Message or list of Messages.
 
   Handles multipart function responses by returning a list of
@@ -472,7 +474,7 @@ def _message_to_generate_content_response(
 
 def _get_completion_inputs(
     llm_request: LlmRequest,
-) -> tuple[Iterable[Message], Iterable[dict]]:
+) -> T.Tuple[Iterable[Message], Iterable[dict]]:
   """Converts an LlmRequest to litellm inputs.
 
   Args:
@@ -551,8 +553,8 @@ def _build_request_log(req: LlmRequest) -> str:
     The request log.
   """
 
-  function_decls: list[types.FunctionDeclaration] = cast(
-      list[types.FunctionDeclaration],
+  function_decls: T.List[types.FunctionDeclaration] = cast(
+      T.List[types.FunctionDeclaration],
       req.config.tools[0].function_declarations if req.config.tools else [],
   )
   function_logs = (
@@ -751,7 +753,7 @@ class LiteLlm(BaseLlm):
 
   @staticmethod
   @override
-  def supported_models() -> list[str]:
+  def supported_models() -> T.List[str]:
     """Provides the list of supported models.
 
     LiteLlm supports all models supported by litellm. We do not keep track of

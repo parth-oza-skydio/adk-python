@@ -14,6 +14,7 @@
 
 
 from __future__ import annotations
+import typing as T
 
 from collections import OrderedDict
 import json
@@ -173,7 +174,7 @@ class VertexAiRagMemoryService(BaseMemoryService):
     return SearchMemoryResponse(memories=memory_results)
 
 
-def _merge_event_lists(event_lists: list[list[Event]]) -> list[list[Event]]:
+def _merge_event_lists(event_lists: T.List[T.List[Event]]) -> T.List[T.List[Event]]:
   """Merge event lists that have overlapping timestamps."""
   merged = []
   while event_lists:

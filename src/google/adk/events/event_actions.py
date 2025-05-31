@@ -13,6 +13,7 @@
 # limitations under the License.
 
 from __future__ import annotations
+import typing as T
 
 from typing import Optional
 
@@ -40,10 +41,10 @@ class EventActions(BaseModel):
   Only used for function_response event.
   """
 
-  state_delta: dict[str, object] = Field(default_factory=dict)
+  state_delta: T.Dict[str, object] = Field(default_factory=dict)
   """Indicates that the event is updating the state with the given delta."""
 
-  artifact_delta: dict[str, int] = Field(default_factory=dict)
+  artifact_delta: T.Dict[str, int] = Field(default_factory=dict)
   """Indicates that the event is updating an artifact. key is the filename,
   value is the version."""
 
@@ -53,7 +54,7 @@ class EventActions(BaseModel):
   escalate: Optional[bool] = None
   """The agent is escalating to a higher level agent."""
 
-  requested_auth_configs: dict[str, AuthConfig] = Field(default_factory=dict)
+  requested_auth_configs: T.Dict[str, AuthConfig] = Field(default_factory=dict)
   """Authentication configurations requested by tool responses.
 
   This field will only be set by a tool response event indicating tool request

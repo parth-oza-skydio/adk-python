@@ -1,3 +1,5 @@
+import typing as T
+
 # Copyright 2025 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -35,9 +37,9 @@ async def assert_session_values(
     ctx: CallbackContext,
     title: str,
     *,
-    keys_in_ctx_session: Optional[list[str]] = None,
-    keys_in_service_session: Optional[list[str]] = None,
-    keys_not_in_service_session: Optional[list[str]] = None,
+    keys_in_ctx_session: Optional[T.List[str]] = None,
+    keys_in_service_session: Optional[T.List[str]] = None,
+    keys_not_in_service_session: Optional[T.List[str]] = None,
 ):
   session_in_ctx = ctx._invocation_context.session
   session_in_service = (

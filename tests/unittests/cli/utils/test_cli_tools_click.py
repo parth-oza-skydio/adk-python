@@ -16,6 +16,7 @@
 
 
 from __future__ import annotations
+import typing as T
 
 import builtins
 from pathlib import Path
@@ -272,7 +273,7 @@ def test_cli_eval_success_path(
 
   class EvalSet(BaseModel):
     eval_set_id: str
-    eval_cases: list[EvalCase]
+    eval_cases: T.List[EvalCase]
 
   def mock_save_eval_set_result(cls, *args, **kwargs):
     return None

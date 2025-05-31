@@ -1,3 +1,5 @@
+import typing as T
+
 # Copyright 2025 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -29,15 +31,15 @@ def simple_function(input_str: str) -> str:
 
 
 class MockBeforeToolCallback(BaseModel):
-  mock_response: dict[str, object]
+  mock_response: T.Dict[str, object]
   modify_tool_request: bool = False
 
   def __call__(
       self,
       tool: BaseTool,
-      args: dict[str, Any],
+      args: T.Dict[str, Any],
       tool_context: ToolContext,
-  ) -> dict[str, object]:
+  ) -> T.Dict[str, object]:
     if self.modify_tool_request:
       args['input_str'] = 'modified_input'
       return None
@@ -45,17 +47,17 @@ class MockBeforeToolCallback(BaseModel):
 
 
 class MockAfterToolCallback(BaseModel):
-  mock_response: dict[str, object]
+  mock_response: T.Dict[str, object]
   modify_tool_request: bool = False
   modify_tool_response: bool = False
 
   def __call__(
       self,
       tool: BaseTool,
-      args: dict[str, Any],
+      args: T.Dict[str, Any],
       tool_context: ToolContext,
-      tool_response: dict[str, Any] = None,
-  ) -> dict[str, object]:
+      tool_response: T.Dict[str, Any] = None,
+  ) -> T.Dict[str, object]:
     if self.modify_tool_request:
       args['input_str'] = 'modified_input'
       return None
@@ -67,7 +69,7 @@ class MockAfterToolCallback(BaseModel):
 
 def noop_callback(
     **kwargs,
-) -> dict[str, object]:
+) -> T.Dict[str, object]:
   pass
 
 

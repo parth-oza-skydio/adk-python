@@ -1,3 +1,5 @@
+import typing as T
+
 # Copyright 2025 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -31,7 +33,7 @@ class TestCase(BaseModel):
 
 
 class Test(BaseModel):
-  test_title: list[str]
+  test_title: T.List[str]
 
 
 def simple_function(param: str) -> str:
@@ -65,19 +67,19 @@ def throw_error_function(param: str) -> str:
   raise ValueError("Error thrown by throw_error_function")
 
 
-def list_str_param_function(param: list[str]) -> str:
+def list_str_param_function(param: T.List[str]) -> str:
   if isinstance(param, list) and all(isinstance(item, str) for item in param):
     return "Called list str param function successfully"
   return "Called list str param function with wrong param type"
 
 
-def return_list_str_function(param: str) -> list[str]:
+def return_list_str_function(param: str) -> T.List[str]:
   return ["Called return list str function successfully"]
 
 
 def complex_function_list_dict(
-    param1: dict[str, Any], param2: list[dict[str, Any]]
-) -> list[Test]:
+    param1: T.Dict[str, Any], param2: T.List[T.Dict[str, Any]]
+) -> T.List[Test]:
   if (
       isinstance(param1, dict)
       and isinstance(param2, list)

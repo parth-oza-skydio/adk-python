@@ -1,3 +1,5 @@
+import typing as T
+
 # Copyright 2025 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -59,7 +61,7 @@ class BigQueryTool(FunctionTool):
 
   @override
   async def run_async(
-      self, *, args: dict[str, Any], tool_context: ToolContext
+      self, *, args: T.Dict[str, Any], tool_context: ToolContext
   ) -> Any:
     """Main entry point for tool execution with credential handling.
 
@@ -96,7 +98,7 @@ class BigQueryTool(FunctionTool):
   async def _run_async_with_credential(
       self,
       credentials: Credentials,
-      args: dict[str, Any],
+      args: T.Dict[str, Any],
       tool_context: ToolContext,
   ) -> Any:
     """Execute the tool's specific logic with valid credentials.

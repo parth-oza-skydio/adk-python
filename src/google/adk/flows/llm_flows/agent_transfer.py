@@ -15,6 +15,7 @@
 """Handles agent transfer for LLM flow."""
 
 from __future__ import annotations
+import typing as T
 
 import typing
 from typing import AsyncGenerator
@@ -80,7 +81,7 @@ line_break = '\n'
 
 
 def _build_target_agents_instructions(
-    agent: LlmAgent, target_agents: list[BaseAgent]
+    agent: LlmAgent, target_agents: T.List[BaseAgent]
 ) -> str:
   si = f"""
 You have a list of other agents to transfer to:
@@ -110,7 +111,7 @@ to your parent agent.
 _TRANSFER_TO_AGENT_FUNCTION_NAME = transfer_to_agent.__name__
 
 
-def _get_transfer_targets(agent: LlmAgent) -> list[BaseAgent]:
+def _get_transfer_targets(agent: LlmAgent) -> T.List[BaseAgent]:
   from ...agents.llm_agent import LlmAgent
 
   result = []

@@ -1,3 +1,5 @@
+import typing as T
+
 # Copyright 2025 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -32,7 +34,7 @@ import pytest
 
 
 async def _create_readonly_context(
-    agent: LlmAgent, state: Optional[dict[str, Any]] = None
+    agent: LlmAgent, state: Optional[T.Dict[str, Any]] = None
 ) -> ReadonlyContext:
   session_service = InMemorySessionService()
   session = await session_service.create_session(

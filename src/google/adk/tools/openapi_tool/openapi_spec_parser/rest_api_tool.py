@@ -1,3 +1,5 @@
+import typing as T
+
 # Copyright 2025 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -74,7 +76,7 @@ def snake_to_lower_camel(snake_case_string: str):
 # in Gemini SDK.
 def normalize_json_schema_type(
     json_schema_type: Optional[Union[str, Sequence[str]]],
-) -> tuple[Optional[str], bool]:
+) -> T.Tuple[Optional[str], bool]:
   """Converts a JSON Schema Type into Gemini Schema type.
 
   Adopted and modified from Gemini SDK. This gets the first available schema
@@ -463,12 +465,12 @@ class RestApiTool(BaseTool):
 
   @override
   async def run_async(
-      self, *, args: dict[str, Any], tool_context: Optional[ToolContext]
+      self, *, args: T.Dict[str, Any], tool_context: Optional[ToolContext]
   ) -> Dict[str, Any]:
     return self.call(args=args, tool_context=tool_context)
 
   def call(
-      self, *, args: dict[str, Any], tool_context: Optional[ToolContext]
+      self, *, args: T.Dict[str, Any], tool_context: Optional[ToolContext]
   ) -> Dict[str, Any]:
     """Executes the REST API call.
 

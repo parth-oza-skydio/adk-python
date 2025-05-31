@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 from __future__ import annotations
+import typing as T
 
 from datetime import datetime
 import random
@@ -64,7 +65,7 @@ class Event(LlmResponse):
   actions: EventActions = Field(default_factory=EventActions)
   """The actions taken by the agent."""
 
-  long_running_tool_ids: Optional[set[str]] = None
+  long_running_tool_ids: Optional[T.Set[str]] = None
   """Set of ids of the long running function calls.
   Agent client will know from this field about which function call is long running.
   only valid for function call event
@@ -103,7 +104,7 @@ class Event(LlmResponse):
         and not self.has_trailing_code_execution_result()
     )
 
-  def get_function_calls(self) -> list[types.FunctionCall]:
+  def get_function_calls(self) -> T.List[types.FunctionCall]:
     """Returns the function calls in the event."""
     func_calls = []
     if self.content and self.content.parts:
@@ -112,7 +113,7 @@ class Event(LlmResponse):
           func_calls.append(part.function_call)
     return func_calls
 
-  def get_function_responses(self) -> list[types.FunctionResponse]:
+  def get_function_responses(self) -> T.List[types.FunctionResponse]:
     """Returns the function responses in the event."""
     func_response = []
     if self.content and self.content.parts:

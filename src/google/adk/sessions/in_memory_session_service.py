@@ -1,3 +1,5 @@
+import typing as T
+
 # Copyright 2025 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -37,11 +39,11 @@ class InMemorySessionService(BaseSessionService):
   def __init__(self):
     # A map from app name to a map from user ID to a map from session ID to
     # session.
-    self.sessions: dict[str, dict[str, dict[str, Session]]] = {}
+    self.sessions: T.Dict[str, T.Dict[str, T.Dict[str, Session]]] = {}
     # A map from app name to a map from user ID to a map from key to the value.
-    self.user_state: dict[str, dict[str, dict[str, Any]]] = {}
+    self.user_state: T.Dict[str, T.Dict[str, T.Dict[str, Any]]] = {}
     # A map from app name to a map from key to the value.
-    self.app_state: dict[str, dict[str, Any]] = {}
+    self.app_state: T.Dict[str, T.Dict[str, Any]] = {}
 
   @override
   async def create_session(
@@ -49,7 +51,7 @@ class InMemorySessionService(BaseSessionService):
       *,
       app_name: str,
       user_id: str,
-      state: Optional[dict[str, Any]] = None,
+      state: Optional[T.Dict[str, Any]] = None,
       session_id: Optional[str] = None,
   ) -> Session:
     return self._create_session_impl(
@@ -64,7 +66,7 @@ class InMemorySessionService(BaseSessionService):
       *,
       app_name: str,
       user_id: str,
-      state: Optional[dict[str, Any]] = None,
+      state: Optional[T.Dict[str, Any]] = None,
       session_id: Optional[str] = None,
   ) -> Session:
     logger.warning('Deprecated. Please migrate to the async method.')
@@ -80,7 +82,7 @@ class InMemorySessionService(BaseSessionService):
       *,
       app_name: str,
       user_id: str,
-      state: Optional[dict[str, Any]] = None,
+      state: Optional[T.Dict[str, Any]] = None,
       session_id: Optional[str] = None,
   ) -> Session:
     session_id = (

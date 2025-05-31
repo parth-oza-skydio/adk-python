@@ -15,6 +15,7 @@
 """Parallel agent implementation."""
 
 from __future__ import annotations
+import typing as T
 
 import asyncio
 from typing import AsyncGenerator
@@ -37,7 +38,7 @@ def _set_branch_for_current_agent(
 
 
 async def _merge_agent_run(
-    agent_runs: list[AsyncGenerator[Event, None]],
+    agent_runs: T.List[AsyncGenerator[Event, None]],
 ) -> AsyncGenerator[Event, None]:
   """Merges the agent run event generator.
 

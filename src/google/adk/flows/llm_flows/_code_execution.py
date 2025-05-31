@@ -15,6 +15,7 @@
 """Handles Code Execution related logic."""
 
 from __future__ import annotations
+import typing as T
 
 import base64
 import copy
@@ -325,7 +326,7 @@ async def _run_post_processor(
 def _extrac_and_replace_inline_files(
     code_executor_context: CodeExecutorContext,
     llm_request: LlmRequest,
-) -> list[File]:
+) -> T.List[File]:
   """Extracts and replaces inline files with file names in the LLM request."""
   all_input_files = code_executor_context.get_input_files()
   saved_file_names = set(f.name for f in all_input_files)
