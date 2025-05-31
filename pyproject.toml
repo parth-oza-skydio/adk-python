@@ -25,7 +25,7 @@ classifiers = [ # List of https://pypi.org/classifiers/
 ]
 dependencies = [
   # go/keep-sorted start
-  "authlib>=1.5.0,<1.5.1",                          # For RestAPI Tool
+  "authlib>=1.3.2",                          # For RestAPI Tool
   "click>=8.1.8",                            # For CLI tools
   "fastapi>=0.115.0",                        # FastAPI framework
   "google-api-python-client>=2.157.0",       # Google API client discovery
